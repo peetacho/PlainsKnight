@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            // print("ouch!");
+            FindObjectOfType<HealthBarManager>().resetHearts();
         }
     }
 
