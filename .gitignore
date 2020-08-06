@@ -1,0 +1,8 @@
+Library/
+Logs/
+obj/
+Packages/
+.DS_Store
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/Tilted.sln
