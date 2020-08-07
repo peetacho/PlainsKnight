@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float idleSpeed = 1.0f;
+    // public float idleSpeed = 1.0f;
 
-    private Coroutine slimeUpdate;
+    // private Coroutine slimeUpdate;
     private Rigidbody2D rb;
 
-    public float agroSpeed = 2.0f;
+    // public float agroSpeed = 2.0f;
 
-    private bool chasingPlayer = false;
+    // private bool chasingPlayer = false;
 
     private Transform player;
+
+    public float meleeDamage = 0.25f;
 
 
     void Awake()
@@ -26,57 +28,57 @@ public class Enemy : MonoBehaviour
     {
         // Start the idle coroutine
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        slimeUpdate = StartCoroutine(Idle());
+        // slimeUpdate = StartCoroutine(Idle());
     }
 
     private void Update()
     {
-        if (chasingPlayer)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.position, 2.0f * Time.deltaTime);
-        }
+        // if (chasingPlayer)
+        // {
+        //     transform.position = Vector2.MoveTowards(transform.position, player.position, 2.0f * Time.deltaTime);
+        // }
     }
 
     public static void TakeDamage()
     {
-        print("Took damage!");
+        print("Enemy has taken damage!");
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && !chasingPlayer)
-        {
-            chasingPlayer = true;
-            // Stop Idle
-            StopCoroutine(slimeUpdate);
-        }
+        // if (other.tag == "Player" && !chasingPlayer)
+        // {
+        //     chasingPlayer = true;
+        //     // Stop Idle
+        //     StopCoroutine(slimeUpdate);
+        // }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            FindObjectOfType<HealthBarManager>().resetHearts();
+            FindObjectOfType<HealthBarManager>().resetHearts("damage", meleeDamage);
         }
     }
 
-    IEnumerator Idle()
-    {
-        // int direction = 1;
+    // IEnumerator Idle()
+    // {
+    //     // int direction = 1;
 
-        while (true)
-        {
-            // Move in a direction
-            float dirX = Random.Range(-1.0f, 1.0f);
-            float dirY = Random.Range(-1.0f, 1.0f);
-            // print(dirX.ToString() + "    " + dirY.ToString());
-            rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
-            // print("idle");
+    //     while (true)
+    //     {
+    //         // Move in a direction
+    //         float dirX = Random.Range(-1.0f, 1.0f);
+    //         float dirY = Random.Range(-1.0f, 1.0f);
+    //         // print(dirX.ToString() + "    " + dirY.ToString());
+    //         rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
+    //         // print("idle");
 
-            float wait = Random.Range(0.7f, 1.5f);
+    //         float wait = Random.Range(0.7f, 1.5f);
 
-            // Wait
-            yield return new WaitForSeconds(wait);
-        }
-    }
+    //         // Wait
+    //         yield return new WaitForSeconds(wait);
+    //     }
+    // }
 }

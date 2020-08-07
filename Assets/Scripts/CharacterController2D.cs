@@ -54,11 +54,11 @@ public class CharacterController2D : MonoBehaviour
 
         weaponClone.Play("Swing");
 
-        Attack();
+        meleeAttack();
 
     }
 
-    public void Attack()
+    public void meleeAttack()
     {
 
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0), enemyLayers);

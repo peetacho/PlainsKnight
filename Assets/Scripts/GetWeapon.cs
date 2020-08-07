@@ -26,16 +26,6 @@ public class GetWeapon : MonoBehaviour
         sr.sprite = meleeWeapons.artwork;
         attackRangeX = meleeWeapons.rangeX;
         attackRangeY = meleeWeapons.rangeY;
-        // box.offset = meleeWeapons.boxOffset;
-        // box.size = meleeWeapons.boxSize;
     }
-
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if (other.tag == "Enemy")
-    //     {
-    //         Debug.Log("Enemy Hit!");
-    //     }
-    // }
 
 }

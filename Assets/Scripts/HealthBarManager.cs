@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class HealthBarManager : MonoBehaviour
 {
 
+    public float maxHealth;
+    public float currentHealth;
     public float UI_SPACING = 65.0f;
     public Image heart0;
     public Image heart1;
@@ -18,11 +20,39 @@ public class HealthBarManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        getHearts(7, 5.25f);
+        if (!PlayerPrefs.HasKey("maxHealth"))
+        {
+            PlayerPrefs.SetInt("maxHealth", 4);
+        }
+        maxHealth = PlayerPrefs.GetInt("maxHealth");
+        currentHealth = maxHealth;
+        getHearts("heal", 0.0f);
     }
 
-    void getHearts(int maxHealth, float currentHealth)
+    public void getHearts(string heal_damage, float value)
     {
+        if (heal_damage == "heal")
+        {
+            currentHealth += value;
+        }
+        else if (heal_damage == "damage")
+        {
+            currentHealth -= value;
+        }
+
+        if (currentHealth < 0.25)
+        {
+            // makes sure current health does not pass 0, and ends game
+            currentHealth = 0;
+            print("Endgame");
+        }
+
+        if (currentHealth > maxHealth)
+        {
+            // makes sure current health does not pass max
+            currentHealth = maxHealth;
+        }
+
         int max = (int)(maxHealth);
         int curFloor = (int)(Mathf.Floor(currentHealth));
         float decMax = Mathf.Repeat(maxHealth, 1.0f);
@@ -34,10 +64,18 @@ public class HealthBarManager : MonoBehaviour
             SetParent(heart0, getNewLocation(i));
         }
 
+        if (currentHealth == maxHealth)
+        {
+            return;
+        }
+
         float decCur = Mathf.Repeat(currentHealth, 1.0f);
 
         switch (decCur)
         {
+            case 0.0f:
+                SetParent(heart4, getNewLocation(curFloor + 1));
+                break;
             case 0.25f:
                 SetParent(heart3, getNewLocation(curFloor + 1));
                 break;
@@ -71,12 +109,20 @@ public class HealthBarManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void resetHearts()
+    // private void Update()
+    // {
+    //     if (Input.touchCount > 0)
+    //     {
+    //         getHearts("heal", 0.25f);
+    //     }
+    // }
+
+    public void resetHearts(string heal_damage, float value)
     {
         foreach (Transform t in gameObject.transform)
         {
             Destroy(t.gameObject);
         }
-        getHearts(7, 0.25f);
+        getHearts(heal_damage, value);
     }
 }

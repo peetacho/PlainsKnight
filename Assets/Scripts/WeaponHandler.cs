@@ -30,11 +30,11 @@ public class WeaponHandler : MonoBehaviour
 
         if (gameObject.transform.Find(weaponCloneName))
         {
-            switchWeapon();
+            flipWeapon();
         }
     }
 
-    void switchWeapon()
+    void flipWeapon()
     {
         // weapon point to right
         if (CharacterController2D.movementDirection.x > 0f)

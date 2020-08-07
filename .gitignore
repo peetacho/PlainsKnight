@@ -6,3 +6,11 @@ Packages/
 /Assembly-CSharp.csproj
 /Assembly-CSharp-Editor.csproj
 /Tilted.sln
+/AstarPathfindingProject.csproj
+/AstarPathfindingProjectEditor.csproj
+/PackageToolsEditor.csproj
+Assets/AstarPathfindingProject/
+Assets/_TerrainAutoUpgrade/
+*.meta
+*.anim
+*.unity
