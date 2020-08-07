@@ -22,6 +22,10 @@ public class Enemy : MonoBehaviour
     public float meleeDamage = 0.25f;
     public float attackDelayTime = 2.0f;
     public float rotZ = 5.0f;
+    public float attackRange = 5.0f;
+    public float rangedAttackSpeed = 2.0f;
+    private Coroutine shoot;
+    private float distToPlayer;
 
     AIPath aipath;
 
@@ -45,8 +49,8 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
         // initializes animator and sprite renderer
-        gfxAnim = GameObject.Find("EnemyGFX").GetComponent<Animator>();
-        gfxSr = GameObject.Find("EnemyGFX").GetComponent<SpriteRenderer>();
+        gfxAnim = transform.GetChild(0).GetComponent<Animator>();
+        gfxSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         initArt();
 
         // slimeUpdate = StartCoroutine(Idle());
@@ -57,6 +61,7 @@ public class Enemy : MonoBehaviour
 
     void initArt()
     {
+        print("initart!");
         gfxAnim.runtimeAnimatorController = enemyScriptObj.controller;
         gfxSr.sprite = enemyScriptObj.artwork;
     }
@@ -70,6 +75,8 @@ public class Enemy : MonoBehaviour
         {
             projectileInstance.transform.Rotate(new Vector3(0, 0, rotZ));
         }
+
+        distToPlayer = Vector2.Distance(player.transform.position, transform.position);
     }
 
     // flips enemy. uses aipath module
@@ -112,10 +119,26 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            projectileInstance = Instantiate(projectile, transform.position, transform.rotation);
+            if (distToPlayer <= attackRange)
+            {
+                Vector3 enemyPos = transform.position;
+                Vector3 playerPos = player.transform.position;
 
-            Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
-            projRB.AddForce(new Vector2(50, 50));
+                projectileInstance = Instantiate(projectile, enemyPos, transform.rotation);
+
+                Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+
+
+                // find vector between player position and enemy position
+                Vector3 vector = (playerPos - enemyPos).normalized * (rangedAttackSpeed * 5);
+
+                // debug line
+                Debug.DrawLine(enemyPos, vector + enemyPos, Color.red, attackDelayTime);
+
+                // print(vector);
+                projRB.AddForce(vector);
+
+            }
 
             // waits for attackDelayTime seconds
             yield return new WaitForSeconds(attackDelayTime);
@@ -141,4 +164,10 @@ public class Enemy : MonoBehaviour
     //         yield return new WaitForSeconds(wait);
     //     }
     // }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
 }
