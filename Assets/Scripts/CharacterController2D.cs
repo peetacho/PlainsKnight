@@ -65,7 +65,7 @@ public class CharacterController2D : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.name == "EnemyHitbox")
+            if (enemy.name == "Enemy")
             {
                 Enemy.TakeDamage();
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Enemy : MonoBehaviour
 
     // private Coroutine slimeUpdate;
     private Rigidbody2D rb;
+    public EnemyScriptObj enemyScriptObj;
+
+    public GameObject projectile;
 
     // public float agroSpeed = 2.0f;
 
@@ -16,27 +20,69 @@ public class Enemy : MonoBehaviour
     private Transform player;
 
     public float meleeDamage = 0.25f;
+    public float attackDelayTime = 2.0f;
+    public float rotZ = 5.0f;
 
+    AIPath aipath;
+
+    Animator gfxAnim;
+
+    SpriteRenderer gfxSr;
+
+    private GameObject projectileInstance;
 
     void Awake()
     {
-        // Get a reference to our physics component
+        // Get a reference to physics component
         rb = GetComponent<Rigidbody2D>();
+        // Get a reference to AIPATH component
+        aipath = GetComponent<AIPath>();
     }
 
     void Start()
     {
-        // Start the idle coroutine
+        // initialize player transform
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
+        // initializes animator and sprite renderer
+        gfxAnim = GameObject.Find("EnemyGFX").GetComponent<Animator>();
+        gfxSr = GameObject.Find("EnemyGFX").GetComponent<SpriteRenderer>();
+        initArt();
+
         // slimeUpdate = StartCoroutine(Idle());
+
+        StartCoroutine(Shoot());
+
+    }
+
+    void initArt()
+    {
+        gfxAnim.runtimeAnimatorController = enemyScriptObj.controller;
+        gfxSr.sprite = enemyScriptObj.artwork;
     }
 
     private void Update()
     {
-        // if (chasingPlayer)
-        // {
-        //     transform.position = Vector2.MoveTowards(transform.position, player.position, 2.0f * Time.deltaTime);
-        // }
+        flipEnemy();
+
+        // Set rotation
+        if (projectileInstance != null)
+        {
+            projectileInstance.transform.Rotate(new Vector3(0, 0, rotZ));
+        }
+    }
+
+    // flips enemy. uses aipath module
+    private void flipEnemy()
+    {
+        if (aipath.desiredVelocity.x >= 0.01f)
+        {
+            transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (aipath.desiredVelocity.x <= -0.01f)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        }
     }
 
     public static void TakeDamage()
@@ -59,6 +105,20 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             FindObjectOfType<HealthBarManager>().resetHearts("damage", meleeDamage);
+        }
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            projectileInstance = Instantiate(projectile, transform.position, transform.rotation);
+
+            Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+            projRB.AddForce(new Vector2(50, 50));
+
+            // waits for attackDelayTime seconds
+            yield return new WaitForSeconds(attackDelayTime);
         }
     }
 
