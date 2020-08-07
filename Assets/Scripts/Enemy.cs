@@ -21,10 +21,8 @@ public class Enemy : MonoBehaviour
 
     public float meleeDamage = 0.25f;
     public float attackDelayTime = 2.0f;
-    public float rotZ = 5.0f;
     public float attackRange = 5.0f;
     public float rangedAttackSpeed = 2.0f;
-    private Coroutine shoot;
     private float distToPlayer;
 
     AIPath aipath;
@@ -61,7 +59,6 @@ public class Enemy : MonoBehaviour
 
     void initArt()
     {
-        print("initart!");
         gfxAnim.runtimeAnimatorController = enemyScriptObj.controller;
         gfxSr.sprite = enemyScriptObj.artwork;
     }
@@ -70,12 +67,7 @@ public class Enemy : MonoBehaviour
     {
         flipEnemy();
 
-        // Set rotation
-        if (projectileInstance != null)
-        {
-            projectileInstance.transform.Rotate(new Vector3(0, 0, rotZ));
-        }
-
+        // gets distance to player
         distToPlayer = Vector2.Distance(player.transform.position, transform.position);
     }
 
@@ -95,16 +87,6 @@ public class Enemy : MonoBehaviour
     public static void TakeDamage()
     {
         print("Enemy has taken damage!");
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // if (other.tag == "Player" && !chasingPlayer)
-        // {
-        //     chasingPlayer = true;
-        //     // Stop Idle
-        //     StopCoroutine(slimeUpdate);
-        // }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -145,6 +127,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    // draws attackRange from transform.position
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
     // IEnumerator Idle()
     // {
     //     // int direction = 1;
@@ -164,10 +153,5 @@ public class Enemy : MonoBehaviour
     //         yield return new WaitForSeconds(wait);
     //     }
     // }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
 
 }
