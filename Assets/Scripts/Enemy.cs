@@ -147,6 +147,38 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Color32 enemyDamagePopUp = new Color32(198, 64, 84, 255);
+
+        // random number determines critical hit
+        float rand = UnityEngine.Random.Range(0.0f, 1.0f);
+        Vector2 enemyPos = transform.position;
+
+        float dirY = UnityEngine.Random.Range(0.0f, 0.8f);
+        float dirX = UnityEngine.Random.Range(-0.8f, 0.8f);
+
+        // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
+        if (rand == GetWeapon.weaponCriticalChance)
+        {
+            // hits 3 times! 1/100 chance
+            for (var i = 0; i < 2; i++)
+            {
+                dirY = UnityEngine.Random.Range(0.0f, 0.8f);
+                dirX = UnityEngine.Random.Range(-1.0f, 1.0f);
+                enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+
+                Popup.Create(enemyPos, damage, enemyDamagePopUp);
+            }
+        }
+        else if (rand < GetWeapon.weaponCriticalChance)
+        {
+            // one critical strike. hits 1 time and has a chance depending on the weapon
+            damage *= 2;
+        }
+
+        enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+        Popup.Create(enemyPos, damage, enemyDamagePopUp);
+
+
         currentHealth -= damage;
         FindObjectOfType<CameraShake>().Shake(0.01f, 0.01f);
         StartCoroutine(Hurt());

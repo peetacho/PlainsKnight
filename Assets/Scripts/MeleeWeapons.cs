@@ -6,7 +6,7 @@ using UnityEngine;
 public class MeleeWeapons : ScriptableObject
 {
     public new string name;
-    public int damage;
+    public float damage;
     public float criticalChance;
     public int attackSpeed;
     public Sprite artwork;

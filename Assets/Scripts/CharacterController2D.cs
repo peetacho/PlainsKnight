@@ -67,7 +67,8 @@ public class CharacterController2D : MonoBehaviour
     public void meleeAttack()
     {
         // get weapon damage from get weapon script. static variable.
-        int damage = GetWeapon.weaponDamage;
+        float damage = GetWeapon.weaponDamage;
+
 
         // creates box and if enemies are in it, they take damage
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0), enemyLayers);
@@ -76,15 +77,34 @@ public class CharacterController2D : MonoBehaviour
         {
             if (enemy.name.Contains("Enemy"))
             {
-                // random number determines critical hit
-                float rand = Random.Range(0.0f, 1.0f);
+                // // random number determines critical hit
+                // float rand = Random.Range(0.0f, 1.0f);
+                // Vector2 enemyPos = enemy.transform.position;
 
-                // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
-                if (rand <= GetWeapon.weaponCriticalChance)
-                {
-                    damage *= 2;
-                }
-                print(damage);
+                // float dirY = Random.Range(0.0f, 0.6f);
+                // float dirX = Random.Range(-0.6f, 0.6f);
+
+                // // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
+                // if (rand == GetWeapon.weaponCriticalChance)
+                // {
+                //     // hits 3 times! 1/100 chance
+                //     for (var i = 0; i < 2; i++)
+                //     {
+                //         dirY = Random.Range(0.0f, 0.8f);
+                //         dirX = Random.Range(-0.8f, 0.8f);
+                //         enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+
+                //         Popup.Create(enemyPos, damage * 2, enemyDamagePopUp);
+                //     }
+                // }
+                // else if (rand < GetWeapon.weaponCriticalChance)
+                // {
+                //     // one critical strike. hits 1 time and has a chance depending on the weapon
+                //     damage *= 2;
+                // }
+
+                // enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+                // Popup.Create(enemyPos, damage, enemyDamagePopUp);
 
                 // deals damage to enemy in collider. 
                 enemy.transform.gameObject.GetComponent<Enemy>().TakeDamage(damage); // Enemy.TakeDamage(); // for static use

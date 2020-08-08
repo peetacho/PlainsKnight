@@ -10,7 +10,7 @@ public class GetWeapon : MonoBehaviour
 
     [Header("Weapon Stats:")]
     public string weaponName;
-    public static int weaponDamage;
+    public static float weaponDamage;
     public static float weaponCriticalChance;
     public int attackSpeed;
     public static float attackRangeX;

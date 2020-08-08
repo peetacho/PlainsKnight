@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Starter_Sword
   m_EditorClassIdentifier: 
   name: Starter Sword
-  damage: 4
+  damage: 3
   criticalChance: 0.2
   attackSpeed: 1
   artwork: {fileID: 6761164967045977113, guid: cc0e30972078341e989cb5834e0279e1, type: 3}

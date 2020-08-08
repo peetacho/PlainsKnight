@@ -16,7 +16,7 @@ MonoBehaviour:
   enemyName: Blue Slime
   meleeDamage: 0.25
   rangedDamage: 0.25
-  rangedAttackSpeed: 4
+  rangedAttackSpeed: 45
   attackDelayTime: 2
   attackRange: 5
   movementSpeed: 3

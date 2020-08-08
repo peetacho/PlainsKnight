@@ -22,5 +22,9 @@ public class Projectile : MonoBehaviour
             FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
             Destroy(gameObject);
         }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            Destroy(gameObject);
+        }
     }
 }

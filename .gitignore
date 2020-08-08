@@ -12,6 +12,8 @@ Temp/
 /PackageToolsEditor.csproj
 Assets/AstarPathfindingProject/
 Assets/_TerrainAutoUpgrade/
+Assets/TextMesh Pro/
+Assets/Thaleah_PixelFont/
 *.meta
 *.anim
 *.unity
