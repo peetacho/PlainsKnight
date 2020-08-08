@@ -6,15 +6,20 @@ using UnityEngine;
 public class EnemyScriptObj : ScriptableObject
 {
 
-    [Header("Important Info:")]
-    public new string name;
-    public int maxHealth;
+    [Header("Stats:")]
+    public float maxHealth;
+    public string enemyName;
     public float meleeDamage;
     public float rangedDamage;
-    public int attackSpeed;
-    public int movementSpeed;
-
+    public float rangedAttackSpeed;
+    public float attackDelayTime;
+    public float attackRange;
+    public float movementSpeed;
     public float colliderRadius;
+
+    [Header("Unique script:")]
+
+    public Object uniqueScript;
 
 
     [Header("Spirte and Animator Controller:")]

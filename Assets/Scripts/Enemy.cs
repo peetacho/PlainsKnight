@@ -1,37 +1,44 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEditor;
 
 public class Enemy : MonoBehaviour
 {
     // public float idleSpeed = 1.0f;
-
     // private Coroutine slimeUpdate;
-    private Rigidbody2D rb;
-    public EnemyScriptObj enemyScriptObj;
-
-    public GameObject projectile;
-
     // public float agroSpeed = 2.0f;
-
     // private bool chasingPlayer = false;
-
+    AIPath aipath;
+    AIDestinationSetter aIDestinationSetter;
+    Animator gfxAnim;
+    SpriteRenderer gfxSr;
+    CircleCollider2D circleCollider2D;
+    private Rigidbody2D rb;
+    private float distToPlayer;
+    private GameObject projectileInstance;
     private Transform player;
 
-    public float meleeDamage = 0.25f;
-    public float attackDelayTime = 2.0f;
-    public float attackRange = 5.0f;
-    public float rangedAttackSpeed = 2.0f;
-    private float distToPlayer;
 
-    AIPath aipath;
+    [Header("Artwork:")]
+    public EnemyScriptObj enemyScriptObj;
+    public GameObject projectile;
 
-    Animator gfxAnim;
 
-    SpriteRenderer gfxSr;
+    [Header("Enemy Stats:")]
+    public float maxHealth;
+    public float currentHealth;
+    public string enemyName;
+    public float meleeDamage;
+    public float rangedDamage;
+    public float rangedAttackSpeed;
+    public float attackDelayTime;
+    public float attackRange;
+    public float movementSpeed;
+    public float colliderRadius;
 
-    private GameObject projectileInstance;
 
     void Awake()
     {
@@ -39,6 +46,7 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         // Get a reference to AIPATH component
         aipath = GetComponent<AIPath>();
+        circleCollider2D = GetComponent<CircleCollider2D>();
     }
 
     void Start()
@@ -46,19 +54,66 @@ public class Enemy : MonoBehaviour
         // initialize player transform
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        // initializes animator and sprite renderer
-        gfxAnim = transform.GetChild(0).GetComponent<Animator>();
-        gfxSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        // init things
+        initStats();
+        initTarget();
         initArt();
+        initUniqueScript();
 
         // slimeUpdate = StartCoroutine(Idle());
-
         StartCoroutine(Shoot());
 
     }
 
+    // gets unique script
+    void initUniqueScript()
+    {
+        if (enemyScriptObj.uniqueScript)
+        {
+            var script = ObjectNames.GetDragAndDropTitle(enemyScriptObj.uniqueScript).Replace(" (MonoScript)", "");
+            // print(script);
+            Type scriptType = Type.GetType(script);
+
+            // print(scriptType);
+            gameObject.AddComponent(scriptType);
+        }
+    }
+
+    void initStats()
+    {
+        var es = enemyScriptObj;
+        maxHealth = es.maxHealth;
+        currentHealth = maxHealth;
+
+        enemyName = es.enemyName;
+        meleeDamage = es.meleeDamage;
+        rangedDamage = es.rangedDamage;
+        rangedAttackSpeed = es.rangedAttackSpeed;
+        attackDelayTime = es.attackDelayTime;
+        attackRange = es.attackRange;
+
+        // set max speed in AIPath component
+        movementSpeed = es.movementSpeed;
+        aipath.maxSpeed = movementSpeed;
+
+        // set circle collider radius
+        colliderRadius = es.colliderRadius;
+        circleCollider2D.radius = colliderRadius;
+
+    }
+
+    // initializes target
+    void initTarget()
+    {
+        aIDestinationSetter = GetComponent<AIDestinationSetter>();
+        aIDestinationSetter.target = player;
+    }
+
+    // initializes animator and sprite renderer
     void initArt()
     {
+        gfxAnim = transform.GetChild(0).GetComponent<Animator>();
+        gfxSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         gfxAnim.runtimeAnimatorController = enemyScriptObj.controller;
         gfxSr.sprite = enemyScriptObj.artwork;
     }
@@ -69,6 +124,12 @@ public class Enemy : MonoBehaviour
 
         // gets distance to player
         distToPlayer = Vector2.Distance(player.transform.position, transform.position);
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     // flips enemy. uses aipath module
@@ -84,9 +145,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public static void TakeDamage()
+    public void TakeDamage(float damage)
     {
-        print("Enemy has taken damage!");
+        currentHealth -= damage;
+        FindObjectOfType<CameraShake>().Shake(0.01f, 0.01f);
+        StartCoroutine(Hurt());
+    }
+
+    IEnumerator Hurt()
+    {
+        Color hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 0.2f);
+        gfxSr.color = hurtColor;
+
+        yield return new WaitForSeconds(0.45f);
+
+        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 1.0f);
+        gfxSr.color = hurtColor;
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -133,25 +207,5 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
-    // IEnumerator Idle()
-    // {
-    //     // int direction = 1;
-
-    //     while (true)
-    //     {
-    //         // Move in a direction
-    //         float dirX = Random.Range(-1.0f, 1.0f);
-    //         float dirY = Random.Range(-1.0f, 1.0f);
-    //         // print(dirX.ToString() + "    " + dirY.ToString());
-    //         rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
-    //         // print("idle");
-
-    //         float wait = Random.Range(0.7f, 1.5f);
-
-    //         // Wait
-    //         yield return new WaitForSeconds(wait);
-    //     }
-    // }
 
 }

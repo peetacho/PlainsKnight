@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897a7dcd0f6d745f18dba06b1ff50fbe, type: 3}
   m_Name: Eagle
   m_EditorClassIdentifier: 
-  name: Eagle
-  maxHealth: 5
+  maxHealth: 30
+  enemyName: Eagle
   meleeDamage: 0.5
   rangedDamage: 0.25
-  attackSpeed: 4
+  rangedAttackSpeed: 50
+  attackDelayTime: 1
+  attackRange: 4
   movementSpeed: 4
   colliderRadius: 0.5
+  uniqueScript: {fileID: 0}
   artwork: {fileID: -8963772635242594009, guid: 061a72d8c6e0b45ddb8dd1108606ff6e,
     type: 3}
   controller: {fileID: 9100000, guid: 9d1a744da67c04660b965026b8a92cd9, type: 2}

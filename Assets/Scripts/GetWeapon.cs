@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class GetWeapon : MonoBehaviour
 {
-    public MeleeWeapons meleeWeapons;
-    Rigidbody2D rb;
+    public MeleeWeapons mw;
     SpriteRenderer sr;
     BoxCollider2D box;
-    // public LayerMask enemyLayers;
+
+    [Header("Weapon Stats:")]
+    public string weaponName;
+    public static int weaponDamage;
+    public static float weaponCriticalChance;
+    public int attackSpeed;
     public static float attackRangeX;
     public static float attackRangeY;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        sr = transform.Find("WeaponGFX").GetComponent<SpriteRenderer>();
         box = GetComponent<BoxCollider2D>();
 
     }
@@ -23,9 +26,19 @@ public class GetWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sr.sprite = meleeWeapons.artwork;
-        attackRangeX = meleeWeapons.rangeX;
-        attackRangeY = meleeWeapons.rangeY;
+        initStats();
+    }
+
+    public void initStats()
+    {
+        sr.sprite = mw.artwork;
+        weaponName = mw.name;
+        weaponDamage = mw.damage;
+        weaponCriticalChance = mw.criticalChance;
+        attackSpeed = mw.attackSpeed;
+        attackRangeX = mw.rangeX;
+        attackRangeY = mw.rangeY;
+
     }
 
 }

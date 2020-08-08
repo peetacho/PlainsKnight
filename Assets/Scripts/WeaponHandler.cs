@@ -22,11 +22,17 @@ public class WeaponHandler : MonoBehaviour
     {
         // Get weapon point location
         weaponPoint = gameObject.transform.Find("Weapon Point").gameObject;
+        weaponCloneName = weapon.name + "(Clone)";
+
     }
 
     private void Update()
     {
-        weaponCloneName = weapon.name + "(Clone)";
+        // allows only one object to be instantiated.
+        if (!gameObject.transform.Find(weaponCloneName))
+        {
+            SetParent();
+        }
 
         if (gameObject.transform.Find(weaponCloneName))
         {
@@ -52,21 +58,19 @@ public class WeaponHandler : MonoBehaviour
     //Invoked when a button is pressed.
     public void SetParent()
     {
-
-        // allows only one object to be instantiated.
-        if (!gameObject.transform.Find(weaponCloneName))
-        {
-            newWeapon = Instantiate(weapon, weaponPoint.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
-            weaponSR = newWeapon.GetComponent<SpriteRenderer>();
-            //Makes the GameObject "newParent" the parent of the GameObject "player".
-            newWeapon.transform.parent = gameObject.transform;
-        }
-
+        // // allows only one object to be instantiated.
+        // if (!gameObject.transform.Find(weaponCloneName))
+        // {
+        newWeapon = Instantiate(weapon, weaponPoint.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
+        weaponSR = newWeapon.transform.Find("WeaponGFX").GetComponent<SpriteRenderer>();
+        //Makes the GameObject "newParent" the parent of the GameObject "player".
+        newWeapon.transform.parent = gameObject.transform;
+        // }
     }
 
-    public void DetachFromParent()
-    {
-        // Detaches the transform from its parent.
-        weapon.transform.parent = null;
-    }
+    // public void DetachFromParent()
+    // {
+    //     // Detaches the transform from its parent.
+    //     weapon.transform.parent = null;
+    // }
 }

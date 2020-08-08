@@ -5,21 +5,34 @@ using UnityEngine.UI;
 
 public class HealthBarManager : MonoBehaviour
 {
+    private Image newHeart;
+    private GameObject player;
+    // private Animator playerAnim;
+    private SpriteRenderer playerSR;
 
+    [Header("Player Health:")]
     public float maxHealth;
     public float currentHealth;
+
+    [Header("UI Settings:")]
     public float UI_SPACING = 65.0f;
+
+    [Header("Sprites and Artwork:")]
     public Image heart0;
     public Image heart1;
     public Image heart2;
     public Image heart3;
     public Image heart4;
 
-    private Image newHeart;
-
     // Start is called before the first frame update
     void Start()
     {
+
+        // initialize player
+        player = GameObject.FindGameObjectWithTag("Player");
+        // playerAnim = player.GetComponent<Animator>();
+        playerSR = player.transform.Find("PlayerGFX").GetComponent<SpriteRenderer>();
+
         if (!PlayerPrefs.HasKey("maxHealth"))
         {
             PlayerPrefs.SetInt("maxHealth", 4);
@@ -27,6 +40,17 @@ public class HealthBarManager : MonoBehaviour
         maxHealth = PlayerPrefs.GetInt("maxHealth");
         currentHealth = maxHealth;
         getHearts("heal", 0.0f);
+    }
+
+    IEnumerator Hurt()
+    {
+        Color hurtColor = new Vector4(playerSR.color.r, playerSR.color.g, playerSR.color.b, 0.2f);
+        playerSR.color = hurtColor;
+
+        yield return new WaitForSeconds(0.45f);
+
+        hurtColor = new Vector4(playerSR.color.r, playerSR.color.g, playerSR.color.b, 1.0f);
+        playerSR.color = hurtColor;
     }
 
     public void getHearts(string heal_damage, float value)
@@ -38,6 +62,10 @@ public class HealthBarManager : MonoBehaviour
         else if (heal_damage == "damage")
         {
             currentHealth -= value;
+            StartCoroutine(Hurt());
+
+            FindObjectOfType<CameraShake>().Shake(0.1f, value);
+
         }
 
         if (currentHealth < 0.25)

@@ -7,22 +7,24 @@ public class CharacterController2D : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
-
     private Animator weaponAnimator;
+    private float movementSpeed;
+    private Animator weaponClone;
+
+
     public Joystick joystick;
     public static Vector2 movementDirection;
-    public float MOVEMENT_BASE_SPEED = 1.0f;
-    private float movementSpeed;
-
-    private Animator weaponClone;
     public Transform weaponPointRange;
     public LayerMask enemyLayers;
+
+    [Header("Character Stats:")]
+    public float MOVEMENT_BASE_SPEED = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GameObject.Find("PlayerGFX").GetComponent<Animator>();
         Physics.IgnoreLayerCollision(8, 9);
 
     }
@@ -31,7 +33,7 @@ public class CharacterController2D : MonoBehaviour
     void Update()
     {
         ProcessInputs();
-        Move();
+
         Animate();
 
         if (movementDirection.x > 0f)
@@ -45,35 +47,53 @@ public class CharacterController2D : MonoBehaviour
         }
 
     }
+    private void FixedUpdate()
+    {
+        Move();
+    }
 
+    public void Dash()
+    {
+        print("DASH");
+    }
 
     public void Swing()
     {
         weaponClone = GameObject.Find("Weapon(Clone)").GetComponent<Animator>();
-        // weaponClone.Play("Swing");
-
-        weaponClone.Play("Swing");
-
+        weaponClone.Play("Swing1");
         meleeAttack();
-
     }
 
     public void meleeAttack()
     {
+        // get weapon damage from get weapon script. static variable.
+        int damage = GetWeapon.weaponDamage;
 
+        // creates box and if enemies are in it, they take damage
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0), enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.name == "Enemy")
+            if (enemy.name.Contains("Enemy"))
             {
-                Enemy.TakeDamage();
+                // random number determines critical hit
+                float rand = Random.Range(0.0f, 1.0f);
+
+                // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
+                if (rand <= GetWeapon.weaponCriticalChance)
+                {
+                    damage *= 2;
+                }
+                print(damage);
+
+                // deals damage to enemy in collider. 
+                enemy.transform.gameObject.GetComponent<Enemy>().TakeDamage(damage); // Enemy.TakeDamage(); // for static use
             }
         }
 
     }
 
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0));
     }
