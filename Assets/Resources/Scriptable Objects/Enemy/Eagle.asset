@@ -21,6 +21,8 @@ MonoBehaviour:
   attackRange: 4
   movementSpeed: 4
   colliderRadius: 0.5
+  projectile: {fileID: 3143618259537959414, guid: 1616ce37faa6e4c998e00a878944773f,
+    type: 3}
   uniqueScript: {fileID: 0}
   artwork: {fileID: -8963772635242594009, guid: 061a72d8c6e0b45ddb8dd1108606ff6e,
     type: 3}

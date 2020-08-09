@@ -38,7 +38,7 @@ public class Popup : MonoBehaviour
     }
 
     // static method to create a popup
-    public static Popup Create(Vector3 position, float damage, Color32 color)
+    public static Popup Create(Vector3 position, float damage, Color32 color, bool IsCrit)
     {
         // finds and gets popup prefab in resources folder
         Transform newPopup = (Transform)Resources.Load("Prefabs/damagePopup", typeof(Transform));
@@ -48,16 +48,23 @@ public class Popup : MonoBehaviour
         Popup popup = popupTransform.GetComponent<Popup>();
 
         // sets up the pop up
-        popup.Setup(damage, color);
+        popup.Setup(damage, color, IsCrit);
 
         return popup;
     }
 
-    public void Setup(float damage, Color32 color)
+    public void Setup(float damage, Color32 color, bool IsCrit)
     {
         textColor = color;
         tm.faceColor = color;
         tm.SetText(damage.ToString());
+
+        if (IsCrit)
+        {
+            float critSize = Random.Range(9.0f, 11.0f);
+            tm.fontSize = critSize;
+        }
+
         disappearTimer = 1.0f;
     }
 }

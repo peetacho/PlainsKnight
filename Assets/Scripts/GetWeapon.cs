@@ -12,6 +12,7 @@ public class GetWeapon : MonoBehaviour
     public string weaponName;
     public static float weaponDamage;
     public static float weaponCriticalChance;
+    public static float weaponKnockBack;
     public int attackSpeed;
     public static float attackRangeX;
     public static float attackRangeY;
@@ -35,6 +36,7 @@ public class GetWeapon : MonoBehaviour
         weaponName = mw.name;
         weaponDamage = mw.damage;
         weaponCriticalChance = mw.criticalChance;
+        weaponKnockBack = mw.weaponKnockBack;
         attackSpeed = mw.attackSpeed;
         attackRangeX = mw.rangeX;
         attackRangeY = mw.rangeY;

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Starter Sword
   damage: 3
-  criticalChance: 0.2
+  criticalChance: 0.4
+  weaponKnockBack: 1.15
   attackSpeed: 1
   artwork: {fileID: 6761164967045977113, guid: cc0e30972078341e989cb5834e0279e1, type: 3}
   rangeX: 1.5

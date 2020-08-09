@@ -72,7 +72,7 @@ public class HealthBarManager : MonoBehaviour
         {
             // makes sure current health does not pass 0, and ends game
             currentHealth = 0;
-            print("Endgame");
+            // print("Endgame");
         }
 
         if (currentHealth > maxHealth)

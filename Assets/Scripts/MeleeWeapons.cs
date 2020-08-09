@@ -8,6 +8,7 @@ public class MeleeWeapons : ScriptableObject
     public new string name;
     public float damage;
     public float criticalChance;
+    public float weaponKnockBack;
     public int attackSpeed;
     public Sprite artwork;
 

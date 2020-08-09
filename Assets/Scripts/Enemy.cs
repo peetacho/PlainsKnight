@@ -24,7 +24,8 @@ public class Enemy : MonoBehaviour
 
     [Header("Artwork:")]
     public EnemyScriptObj enemyScriptObj;
-    public GameObject projectile;
+    [SerializeField]
+    private GameObject projectile;
 
 
     [Header("Enemy Stats:")]
@@ -100,6 +101,8 @@ public class Enemy : MonoBehaviour
         colliderRadius = es.colliderRadius;
         circleCollider2D.radius = colliderRadius;
 
+        projectile = es.projectile;
+
     }
 
     // initializes target
@@ -147,7 +150,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Color32 enemyDamagePopUp = new Color32(198, 64, 84, 255);
+        Color32 popUpColorNormal = new Color32(255, 255, 255, 255);
+        Color32 popUpColorCrit = new Color32(209, 0, 53, 255);
+        bool isCrit = false;
 
         // random number determines critical hit
         float rand = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -165,18 +170,25 @@ public class Enemy : MonoBehaviour
                 dirY = UnityEngine.Random.Range(0.0f, 0.8f);
                 dirX = UnityEngine.Random.Range(-1.0f, 1.0f);
                 enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+                isCrit = true;
 
-                Popup.Create(enemyPos, damage, enemyDamagePopUp);
+                Popup.Create(enemyPos, damage, popUpColorCrit, isCrit);
             }
         }
         else if (rand < GetWeapon.weaponCriticalChance)
         {
             // one critical strike. hits 1 time and has a chance depending on the weapon
             damage *= 2;
+            popUpColorNormal = popUpColorCrit;
+            isCrit = true;
         }
 
         enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
-        Popup.Create(enemyPos, damage, enemyDamagePopUp);
+        Popup.Create(enemyPos, damage, popUpColorNormal, isCrit);
+
+        float weaponKnockBack = GetWeapon.weaponKnockBack;
+        Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
+        transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
 
 
         currentHealth -= damage;
@@ -189,7 +201,17 @@ public class Enemy : MonoBehaviour
         Color hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 0.2f);
         gfxSr.color = hurtColor;
 
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSeconds(0.2f);
+
+        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 1.0f);
+        gfxSr.color = hurtColor;
+
+        yield return new WaitForSeconds(0.2f);
+
+        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 0.2f);
+        gfxSr.color = hurtColor;
+
+        yield return new WaitForSeconds(0.1f);
 
         hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 1.0f);
         gfxSr.color = hurtColor;

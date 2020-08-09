@@ -6176,6 +6176,60 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1493764782}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1614402641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1614402643}
+  - component: {fileID: 1614402642}
+  m_Layer: 0
+  m_Name: EnemyGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1614402642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614402641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df34e6e21447e4404a16408f3555e63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalEnemies: 5
+  enemiesStart:
+  - Eagle
+  - Blue Slime
+  enemiesUpdate: []
+  spawnDelayTime: 0
+  isGroup: 1
+  groupAmount: 2
+  groupSize: 2
+  mapX: 9
+  mapY: 6
+--- !u!4 &1614402643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614402641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1653733924 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3555901876993631052, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
@@ -6309,17 +6363,17 @@ PrefabInstance:
     - target: {fileID: 1270188277953829904, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.57
+      value: 2.46
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.028
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
@@ -6371,12 +6425,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 1270188277953829917, guid: c7fcc6a16c7724ef5a2f0437646222b0,
-        type: 3}
-      propertyPath: enemyScriptObj
-      value: 
-      objectReference: {fileID: 11400000, guid: 64ce1edf171804d1e8cab2409cd90255,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fcc6a16c7724ef5a2f0437646222b0, type: 3}
 --- !u!1 &1942417791
@@ -6517,7 +6565,7 @@ PrefabInstance:
     - target: {fileID: 1270188277953829904, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}

@@ -16,9 +16,9 @@ public class EnemyScriptObj : ScriptableObject
     public float attackRange;
     public float movementSpeed;
     public float colliderRadius;
+    public GameObject projectile;
 
     [Header("Unique script:")]
-
     public Object uniqueScript;
 
 

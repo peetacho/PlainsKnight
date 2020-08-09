@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 897a7dcd0f6d745f18dba06b1ff50fbe, type: 3}
-  m_Name: Blue_Slime
+  m_Name: Blue Slime
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 20
   enemyName: Blue Slime
   meleeDamage: 0.25
   rangedDamage: 0.25
@@ -21,6 +21,8 @@ MonoBehaviour:
   attackRange: 5
   movementSpeed: 3
   colliderRadius: 0.5
+  projectile: {fileID: 3143618259537959414, guid: 1616ce37faa6e4c998e00a878944773f,
+    type: 3}
   uniqueScript: {fileID: 11500000, guid: 4688c98b8fac24036bf664bc24a6cf69, type: 3}
   artwork: {fileID: 368543389579951487, guid: b8beeea7ad7ed48e69571d962e5745ff, type: 3}
   controller: {fileID: 9100000, guid: 33d56345a06e946188a394d34e3eb57a, type: 2}
