@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public float movementSpeed;
     public float colliderRadius;
+    public bool enemyIsRanged;
 
 
     void Awake()
@@ -102,6 +103,7 @@ public class Enemy : MonoBehaviour
         circleCollider2D.radius = colliderRadius;
 
         projectile = es.projectile;
+        enemyIsRanged = es.enemyIsRanged;
 
     }
 
@@ -128,11 +130,28 @@ public class Enemy : MonoBehaviour
         // gets distance to player
         distToPlayer = Vector2.Distance(player.transform.position, transform.position);
 
+        ranged();
+
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
 
+    }
+
+    void ranged()
+    {
+        if (enemyIsRanged)
+        {
+            if (distToPlayer <= attackRange)
+            {
+                aipath.canSearch = false;
+            }
+            else
+            {
+                aipath.canSearch = true;
+            }
+        }
     }
 
     // flips enemy. uses aipath module
@@ -186,35 +205,41 @@ public class Enemy : MonoBehaviour
         enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
         Popup.Create(enemyPos, damage, popUpColorNormal, isCrit);
 
-        float weaponKnockBack = GetWeapon.weaponKnockBack;
-        Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
-        transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
-
-
         currentHealth -= damage;
         FindObjectOfType<CameraShake>().Shake(0.01f, 0.01f);
         StartCoroutine(Hurt());
+        StartCoroutine(Knockback());
+    }
+
+    IEnumerator Knockback()
+    {
+        float weaponKnockBack = GetWeapon.weaponKnockBack;
+        Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
+
+        yield return new WaitForSeconds(0.2f);
+        transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
     }
 
     IEnumerator Hurt()
     {
-        Color hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 0.2f);
-        gfxSr.color = hurtColor;
+        Color gc = gfxSr.color;
+        Color hurtColor = new Vector4(gc.r, gc.g, gc.b, 0.2f);
+        gc = hurtColor;
 
         yield return new WaitForSeconds(0.2f);
 
-        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 1.0f);
-        gfxSr.color = hurtColor;
+        hurtColor = new Vector4(gc.r, gc.g, gc.b, 1.0f);
+        gc = hurtColor;
 
         yield return new WaitForSeconds(0.2f);
 
-        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 0.2f);
-        gfxSr.color = hurtColor;
+        hurtColor = new Vector4(gc.r, gc.g, gc.b, 0.2f);
+        gc = hurtColor;
 
         yield return new WaitForSeconds(0.1f);
 
-        hurtColor = new Vector4(gfxSr.color.r, gfxSr.color.g, gfxSr.color.b, 1.0f);
-        gfxSr.color = hurtColor;
+        hurtColor = new Vector4(gc.r, gc.g, gc.b, 1.0f);
+        gc = hurtColor;
     }
 
     void OnCollisionEnter2D(Collision2D other)

@@ -350,7 +350,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1637553627553611133, guid: d2376012f9efd455ca2fb970aebfb88a,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.74509805}
@@ -371,7 +371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178131084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 2.96, z: 0}
+  m_LocalPosition: {x: -0.96, y: 2.29, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5893,7 +5893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAABAIeznj0APTgIAAPUEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE2P2jAQ/SvI57IiNNDSWwss2wMLWlrtJRdjTxILx45sZ/kS/71jJyEpVU8Mb97MvPlwrkQoWwJz2qyM4GvNgXwbEG+TT4PO+QInmmm1ExdoOe+Cu9yTaOC8USc04pEPs7oAZwT7rjLpySMEKyVSbYolz2CurbMIp1RaQJfRzkcrhK4DcsKf4cyHnNEaf/HWBa3ZaHBDk4FyYDpqS2xpNatSTNKiBO4ld+Rxy47iQFPYTMPwwpmWUthGCXHnMnS6K3Mw4FvlgmJjoXr09BmBHESWO5+4H71JUwuu0WToeSEMTqhOS37oemwFtYda2AeVFQRx8degqs66/ocwjII7Nbp4aQtHI1/E5YId3uiZUet6g+3Di572MKAjlQe6l/Ceg3rVK6MrxdHpTOVDKwvjRff33ts8B3bo8FrqA1iV/1+P7+EW2j/NpSj23vUU18BO6jDxsHwwuJufKDichm1SIOpV/Lbwi2b9G2ocz8JYh66mS+Xl7XVlPJUsw8x8N5Wba6MgwI3oEhSV7rzFNO5xhw++XtkHzzP1r6Up3vjaR/AQEuCOPxo9uLb6eF+WzfVxDTbfVE4KBZ1o73jFOc21UvWJ9WfShu0qk1LWC8sqwf8+LTLdx1OWRjDhPKJ0Nhnux6NpPBtPaDzdT9OUkXB7QmGfVG5roc14cGuqS67wztqPyGBlaBnOnRt6XIlLofsChUr1jhkAtalT3JWDwSr4MPmSC5zQDpwTKiycXBMiNTsAT+41k9Dq8uQMTbosCSnFh3YeScg8fDYSciO3P1BLAwQUAAAICAAAQCHsHtkZa20AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNVRUEovSizIKAaKGII4pZkpIHa0klmSiVlymmGqaUqKYWKipalukpGBmYmlkWmiiVmSWVpaslIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAQCHs549AD04CAAD1BAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAQCHsHtkZa20AAAB4AAAACQAkAAAAAAAAAAAAAACbAgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAFMDAAAAAA==
+    dataString: UEsDBBQAAAgIAABAIewzZoujTwIAAPQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMmS2jAQ/RVK5zCFiSEht4RtcmCghqTm4ouQ2rYKWXJJ8rBM8e9pyTZ2SOVE8/p19+tF/iBC2RKY02ZtBN9oDuTbgHibfBp0zmc400yrvbhCy3kT3OWeRAPnlTqhEY98mNUFOCPYd5VJTx4hWCmRalMseQZzbZ1FOKXSArqMdj5aIfQxIGf8Gc58yAWt8RdvXdGajQY3NBkoB6ajtsSWVrMqxSQtSuBeckcet+woDjSFzTQML5xpKYVtlBB3KUOn+zIHA75VLig2FqpHT58RyEFkufOJ+9HbNLXgGk2GXhbC4ITqtOSHrsdWUHushb1TWUEQF38Nquqsm38Iwyi4U6OL57ZwNPJFXC7Y8ZVeGLWuN9g+vOhpDwM6UXmkBwlvOagXvTa6UhydzlQ+tLIwXnR/773Nc2DHDq+lPoBV+f/1+B5uof3zXIri4F1PcQ3spQ4TD8sHg7v5iYLDadgmBaJexW8Lv2jWv6HGsRLGOnQ1XSov76Ar46lkhYYfPavcXBsFAW00l6CodJcdZnGPK3zw9ao+eFbUP5amduNr38BDSIA7/mj04Nrp031XNtenDdh8WzkpFHSiveMFxzTXStUX1h9JG7avTEpZLyyrBP/7ssj0EE9ZGsGE84jS2WR4GI+m8Ww8ofH0ME1TRsLpCYV9UrmrhTbjwaWpLrnCM2u/IYO1oWW4dm7oaS2uhe4LFCrVe2YA1LZOcVcOBqvgu+RLLnBCe3BOqLBv8pEQqdkReHKvmYRWl2dnaNJlSUgp3rXzSELm4auRkBu5/QFQSwMEFAAACAgAAEAh7B7ZGWttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTVUVBKL0osyCgGihiCOKWZKSB2tJJZkolZcpphqmlKimFioqWpbpKRgZmJpZFpoolZkllaWrJSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAEAh7DNmi6NPAgAA9AQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAEAh7B7ZGWttAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -5921,11 +5921,43 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0, g: 0, b: 0, a: 0}
-  tagNames: []
+  tagNames:
+  - Basic Ground
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -6200,7 +6232,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614402641}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df34e6e21447e4404a16408f3555e63b, type: 3}
   m_Name: 
@@ -6363,7 +6395,7 @@ PrefabInstance:
     - target: {fileID: 1270188277953829904, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
@@ -6425,6 +6457,12 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1270188277953829917, guid: c7fcc6a16c7724ef5a2f0437646222b0,
+        type: 3}
+      propertyPath: enemyScriptObj
+      value: 
+      objectReference: {fileID: 11400000, guid: 64ce1edf171804d1e8cab2409cd90255,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fcc6a16c7724ef5a2f0437646222b0, type: 3}
 --- !u!1 &1942417791
@@ -6565,7 +6603,12 @@ PrefabInstance:
     - target: {fileID: 1270188277953829904, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270188277953829905, guid: c7fcc6a16c7724ef5a2f0437646222b0,
+        type: 3}
+      propertyPath: canSearch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1270188277953829907, guid: c7fcc6a16c7724ef5a2f0437646222b0,
         type: 3}
@@ -6627,6 +6670,12 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1270188277953829917, guid: c7fcc6a16c7724ef5a2f0437646222b0,
+        type: 3}
+      propertyPath: enemyScriptObj
+      value: 
+      objectReference: {fileID: 11400000, guid: f6919b9cbb004437baabaf694b7e846e,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7fcc6a16c7724ef5a2f0437646222b0, type: 3}
 --- !u!1001 &3555901876430461288
