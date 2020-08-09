@@ -18,6 +18,7 @@ public class EnemyScriptObj : ScriptableObject
     public float colliderRadius;
     public GameObject projectile;
     public bool enemyIsRanged;
+    public float enemyViewRange;
 
     [Header("Unique script:")]
     public Object uniqueScript;

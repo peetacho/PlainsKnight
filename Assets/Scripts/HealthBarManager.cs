@@ -64,7 +64,7 @@ public class HealthBarManager : MonoBehaviour
             currentHealth -= value;
             StartCoroutine(Hurt());
 
-            FindObjectOfType<CameraShake>().Shake(0.1f, value);
+            FindObjectOfType<CameraShake>().Shake(0.1f * value, 0.1f);
 
         }
 

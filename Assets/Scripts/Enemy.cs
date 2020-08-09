@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
     public float movementSpeed;
     public float colliderRadius;
     public bool enemyIsRanged;
+    public float enemyViewRange;
 
 
     void Awake()
@@ -104,6 +105,7 @@ public class Enemy : MonoBehaviour
 
         projectile = es.projectile;
         enemyIsRanged = es.enemyIsRanged;
+        enemyViewRange = es.enemyViewRange;
 
     }
 
@@ -130,7 +132,7 @@ public class Enemy : MonoBehaviour
         // gets distance to player
         distToPlayer = Vector2.Distance(player.transform.position, transform.position);
 
-        ranged();
+        manageState();
 
         if (currentHealth <= 0)
         {
@@ -139,19 +141,31 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void ranged()
+    // manages enemy state
+    void manageState()
     {
-        if (enemyIsRanged)
+        // if distance from enemy to player is greater than the enemies' view range, enemy stops searching. 
+        if (distToPlayer > enemyViewRange)
         {
-            if (distToPlayer <= attackRange)
+            aipath.canSearch = false;
+            // play idle state
+        }
+        else
+        {
+            // if enemy is a ranged character, the enemy will stop searching when enemy is within it's attack range.
+            if (enemyIsRanged)
             {
-                aipath.canSearch = false;
+                if (distToPlayer <= attackRange)
+                {
+                    aipath.canSearch = false;
+                }
             }
             else
             {
                 aipath.canSearch = true;
             }
         }
+
     }
 
     // flips enemy. uses aipath module
@@ -248,6 +262,10 @@ public class Enemy : MonoBehaviour
         {
             FindObjectOfType<HealthBarManager>().resetHearts("damage", meleeDamage);
         }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            transform.position = transform.position;
+        }
     }
 
     IEnumerator Shoot()
@@ -284,7 +302,10 @@ public class Enemy : MonoBehaviour
     // draws attackRange from transform.position
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, enemyViewRange);
     }
 
 }

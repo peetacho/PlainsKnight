@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float DestroyTime = 2.0f;
-    public float projectileDamage = 0.25f;
-    public float rotZ = 15.0f;
+    public float DestroyTime;// = 2.0f;
+    public float projectileDamage; // 0.25f;
+    public float rotZ; // = 15.0f;
 
     // Update is called once per frame
     void Update()

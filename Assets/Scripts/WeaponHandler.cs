@@ -7,6 +7,7 @@ public class WeaponHandler : MonoBehaviour
 
     // weapon prefab
     public GameObject weapon;
+    public Transform weaponTransform;
 
     // newly created weapons
     SpriteRenderer weaponSR;
@@ -45,13 +46,15 @@ public class WeaponHandler : MonoBehaviour
         // weapon point to right
         if (CharacterController2D.movementDirection.x > 0f)
         {
-            weaponSR.flipX = false;
+            // weaponSR.flipX = false;
+            weaponTransform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
 
         }
         // weaponpoint to left
         else if (CharacterController2D.movementDirection.x < 0f)
         {
-            weaponSR.flipX = true;
+            // weaponSR.flipX = true;
+            weaponTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
@@ -63,8 +66,10 @@ public class WeaponHandler : MonoBehaviour
         // {
         newWeapon = Instantiate(weapon, weaponPoint.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
         weaponSR = newWeapon.transform.Find("WeaponGFX").GetComponent<SpriteRenderer>();
+        weaponTransform = newWeapon.transform.Find("WeaponGFX").transform;
         //Makes the GameObject "newParent" the parent of the GameObject "player".
         newWeapon.transform.parent = gameObject.transform;
+        weaponTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         // }
     }
 

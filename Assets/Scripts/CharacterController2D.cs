@@ -75,11 +75,16 @@ public class CharacterController2D : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.name.Contains("Enemy"))
+            if (enemy.tag == "Enemy")
             {
-
+                // print("Enemy!    " + enemy);
                 // deals damage to enemy in collider. 
-                enemy.transform.gameObject.GetComponent<Enemy>().TakeDamage(damage); // Enemy.TakeDamage(); // for static use
+                enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage); // Enemy.TakeDamage(); // for static use
+            }
+            if (enemy.tag == "Projectile")
+            {
+                print("projectile!    " + enemy);
+                Destroy(enemy.gameObject);
             }
         }
 

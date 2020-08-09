@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3143618259537959410}
   - component: {fileID: -8905264151285470726}
   - component: {fileID: 7689455895795750863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_Blue_Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
