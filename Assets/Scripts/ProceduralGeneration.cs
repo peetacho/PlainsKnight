@@ -15,6 +15,9 @@ public class ProceduralGeneration : MonoBehaviour
     public string seed;
     public bool useRandomSeed;
 
+    public Vector2 centerBoundX = new Vector2(19, 40);
+    public Vector2 centerBoundY = new Vector2(15, 25);
+
     // BOTTOM
     List<Tuple<int, int>> bottom_L = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1) };
     List<Tuple<int, int>> bottom_L2 = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1), Tuple.Create(1, -1) };
@@ -66,6 +69,8 @@ public class ProceduralGeneration : MonoBehaviour
         tile_top_M, tile_top_R;
     public Tile corner_b_L, corner_b_R, corner_t_L, corner_t_R;
 
+    public Tile[] decorations;
+
     private void Awake()
     {
         tm = GetComponent<Tilemap>();
@@ -104,6 +109,12 @@ public class ProceduralGeneration : MonoBehaviour
                 }
             }
         }
+    }
+
+    public Tile decorationTiles()
+    {
+        int rand = UnityEngine.Random.Range(0, decorations.Length);
+        return decorations[rand];
     }
 
     public void fixWalls()
@@ -208,6 +219,10 @@ public class ProceduralGeneration : MonoBehaviour
             return corner_t_R;
         }
 
+        if (UnityEngine.Random.Range(0, 10) == 1)
+        {
+            return decorationTiles();
+        }
         return tile_plain;
     }
 
@@ -231,11 +246,15 @@ public class ProceduralGeneration : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 // map in (x,y) would either have a value of 1 or 0 depending on the fill percent
-                // 1 is wall, 0 is empty space
+                // 1 is wall, 0 is walkable space
 
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                 {
                     map[x, y] = 1;
+                }
+                else if ((x > centerBoundX.x && x < centerBoundX.y) && (y > centerBoundY.x && y < centerBoundY.y))
+                {
+                    map[x, y] = 0;
                 }
                 else
                 {
@@ -291,18 +310,4 @@ public class ProceduralGeneration : MonoBehaviour
     {
         tm.SetTile(new Vector3Int(x, y, 0), tile);
     }
-
-    // private void OnDrawGizmos()
-    // {
-    //     if (map != null)
-    //     {
-    //         for (int x = 0; x < width; x++)
-    //         {
-    //             for (int y = 0; y < height; y++)
-    //             {
-
-    //             }
-    //         }
-    //     }
-    // }
 }

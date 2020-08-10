@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   currentHealth: 0
-  UI_SPACING: 20
+  UI_SPACING: 65
   heart0: {fileID: 5254594564302194773, guid: 059185fe31de24f96aa00bc4d27edb73, type: 3}
   heart1: {fileID: 6044541342454094960, guid: 42c16b7f486b74bdea38aa1f928c4205, type: 3}
   heart2: {fileID: 3747750675799526550, guid: d82d68de0b0ed445b9ea37951dcf32fd, type: 3}
@@ -1488,7 +1488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1151073049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2082,7 +2082,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614402641}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df34e6e21447e4404a16408f3555e63b, type: 3}
   m_Name: 
@@ -2167,7 +2167,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  m_BackGroundColor: {r: 0.47058824, g: 0.7294118, b: 0.7529412, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2541,6 +2541,16 @@ MonoBehaviour:
   corner_b_R: {fileID: 11400000, guid: a9b742eadfc2a41f6a89bfc57bf923f5, type: 2}
   corner_t_L: {fileID: 11400000, guid: 8f27ef677475047e1bd05beb9cfa19be, type: 2}
   corner_t_R: {fileID: 11400000, guid: 8837190b5a3ad4871b4d3102e3ceb0d8, type: 2}
+  decorations:
+  - {fileID: 11400000, guid: 4cacd8fcc478147c4a4eb2fc52e373f2, type: 2}
+  - {fileID: 11400000, guid: ec348b219873647c5a39af70e4f89b25, type: 2}
+  - {fileID: 11400000, guid: f6943432ec89e44a883849f8af92b2f1, type: 2}
+  - {fileID: 11400000, guid: 19265035bbdac402e8f04b2e9614f796, type: 2}
+  - {fileID: 11400000, guid: f5ba8b25ac3834f1fb49b193aa13b084, type: 2}
+  - {fileID: 11400000, guid: 0004c237f13694da7944f2081f1d1930, type: 2}
+  - {fileID: 11400000, guid: ee76bec89d0bd4a8dba8116600238760, type: 2}
+  - {fileID: 11400000, guid: 07990e8a8871b4b8fbc044e6b402d83c, type: 2}
+  - {fileID: 11400000, guid: e495a9b35b0f041b7afa1d3f72b71979, type: 2}
 --- !u!483693784 &127289227331804713
 TilemapRenderer:
   m_ObjectHideFlags: 0
