@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: land_5
+  m_Name: grass_land_decoration_6
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -5004380301703674066, guid: 4c232790e0ac24ec0bd90a5999b64a91,
+  m_Sprite: {fileID: -396035294860175646, guid: 733f446aed6f443f5a8cfcf2ec73df15,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:

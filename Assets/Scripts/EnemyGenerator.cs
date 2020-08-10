@@ -56,7 +56,7 @@ public class EnemyGenerator : MonoBehaviour
             for (var j = 0; j < groupSize; j++)
             {
                 float diff = Random.Range(-1.0f, 1.0f);
-                Vector3 randPos = new Vector3(dirX + diff, dirY + diff, 0);
+                Vector3 randPos = new Vector3(transform.position.x + dirX + diff, transform.position.y + dirY + diff, 0);
 
                 generateEnemy(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
             }
@@ -70,7 +70,7 @@ public class EnemyGenerator : MonoBehaviour
             float dirX = Random.Range(-mapX, mapX);
             float dirY = Random.Range(-mapY, mapY);
 
-            Vector3 randPos = new Vector3(dirX, dirY, 0);
+            Vector3 randPos = new Vector3(transform.position.x + dirX, transform.position.y + dirY, 0);
 
             generateEnemy(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
         }
