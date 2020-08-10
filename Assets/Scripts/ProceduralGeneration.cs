@@ -14,16 +14,46 @@ public class ProceduralGeneration : MonoBehaviour
     public int width = 30;
     public string seed;
     public bool useRandomSeed;
+
+    // BOTTOM
     List<Tuple<int, int>> bottom_L = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1) };
+    List<Tuple<int, int>> bottom_L2 = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1), Tuple.Create(1, -1) };
+    List<Tuple<int, int>> bottom_L3 = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1), Tuple.Create(-1, 1) };
     List<Tuple<int, int>> bottom_M = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(0, -1), Tuple.Create(1, -1) };
+    List<Tuple<int, int>> bottom_M2 = new List<Tuple<int, int>> { Tuple.Create(0, -1), Tuple.Create(-1, -1) };
+    List<Tuple<int, int>> bottom_M3 = new List<Tuple<int, int>> { Tuple.Create(1, -1), Tuple.Create(0, -1) };
+    List<Tuple<int, int>> bottom_M4 = new List<Tuple<int, int>> { Tuple.Create(0, -1) };
     List<Tuple<int, int>> bottom_R = new List<Tuple<int, int>> { Tuple.Create(1, -1), Tuple.Create(1, 0), Tuple.Create(0, -1) };
+    List<Tuple<int, int>> bottom_R2 = new List<Tuple<int, int>> { Tuple.Create(1, -1), Tuple.Create(1, 0), Tuple.Create(0, -1), Tuple.Create(1, 1) };
+    List<Tuple<int, int>> bottom_R3 = new List<Tuple<int, int>> { Tuple.Create(1, -1), Tuple.Create(1, 0), Tuple.Create(0, -1), Tuple.Create(-1, -1) };
 
+    // TOP
     List<Tuple<int, int>> top_L = new List<Tuple<int, int>> { Tuple.Create(-1, 0), Tuple.Create(-1, 1), Tuple.Create(0, 1) };
+    List<Tuple<int, int>> top_L2 = new List<Tuple<int, int>> { Tuple.Create(-1, 0), Tuple.Create(-1, 1), Tuple.Create(0, 1), Tuple.Create(1, 1) };
+    List<Tuple<int, int>> top_L3 = new List<Tuple<int, int>> { Tuple.Create(-1, 0), Tuple.Create(-1, 1), Tuple.Create(0, 1), Tuple.Create(-1, -1) };
     List<Tuple<int, int>> top_M = new List<Tuple<int, int>> { Tuple.Create(-1, 1), Tuple.Create(0, 1), Tuple.Create(1, 1) };
-    List<Tuple<int, int>> top_R = new List<Tuple<int, int>> { Tuple.Create(0, 1), Tuple.Create(1, 1), Tuple.Create(0, 1) };
+    List<Tuple<int, int>> top_M2 = new List<Tuple<int, int>> { Tuple.Create(-1, 1), Tuple.Create(0, 1) };
+    List<Tuple<int, int>> top_M3 = new List<Tuple<int, int>> { Tuple.Create(0, 1), Tuple.Create(1, 1) };
+    List<Tuple<int, int>> top_M4 = new List<Tuple<int, int>> { Tuple.Create(0, 1) };
+    List<Tuple<int, int>> top_R = new List<Tuple<int, int>> { Tuple.Create(0, 1), Tuple.Create(1, 1), Tuple.Create(1, 0) };
+    List<Tuple<int, int>> top_R2 = new List<Tuple<int, int>> { Tuple.Create(0, 1), Tuple.Create(1, 1), Tuple.Create(1, 0), Tuple.Create(-1, 1) };
+    List<Tuple<int, int>> top_R3 = new List<Tuple<int, int>> { Tuple.Create(0, 1), Tuple.Create(1, 1), Tuple.Create(1, 0), Tuple.Create(1, -1) };
 
+    // RIGHT LEFT
     List<Tuple<int, int>> right = new List<Tuple<int, int>> { Tuple.Create(1, 1), Tuple.Create(1, 0), Tuple.Create(1, -1) };
+    List<Tuple<int, int>> right2 = new List<Tuple<int, int>> { Tuple.Create(1, 1), Tuple.Create(1, 0) };
+    List<Tuple<int, int>> right3 = new List<Tuple<int, int>> { Tuple.Create(1, 0), Tuple.Create(1, -1) };
+    List<Tuple<int, int>> right4 = new List<Tuple<int, int>> { Tuple.Create(1, 0) };
     List<Tuple<int, int>> left = new List<Tuple<int, int>> { Tuple.Create(-1, 1), Tuple.Create(-1, 0), Tuple.Create(-1, -1) };
+    List<Tuple<int, int>> left2 = new List<Tuple<int, int>> { Tuple.Create(-1, 1), Tuple.Create(-1, 0) };
+    List<Tuple<int, int>> left3 = new List<Tuple<int, int>> { Tuple.Create(-1, 0), Tuple.Create(-1, -1) };
+    List<Tuple<int, int>> left4 = new List<Tuple<int, int>> { Tuple.Create(-1, 0) };
+
+    // CORNERS
+    List<Tuple<int, int>> bl = new List<Tuple<int, int>> { Tuple.Create(-1, -1) };
+    List<Tuple<int, int>> br = new List<Tuple<int, int>> { Tuple.Create(1, -1) };
+    List<Tuple<int, int>> tl = new List<Tuple<int, int>> { Tuple.Create(-1, 1) };
+    List<Tuple<int, int>> tr = new List<Tuple<int, int>> { Tuple.Create(1, 1) };
 
     [Range(0, 100)]
     public int randomFillPercent;
@@ -34,6 +64,7 @@ public class ProceduralGeneration : MonoBehaviour
         tile_bottom_R, tile_left,
         tile_right, tile_top_L,
         tile_top_M, tile_top_R;
+    public Tile corner_b_L, corner_b_R, corner_t_L, corner_t_R;
 
     private void Awake()
     {
@@ -50,14 +81,14 @@ public class ProceduralGeneration : MonoBehaviour
         map = new int[width, height];
         RandomFillMap();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             SmoothMap();
         }
         setMainTiles();
     }
 
-    void setMainTiles()
+    public void setMainTiles()
     {
         for (int x = 0; x < width; x++)
         {
@@ -75,7 +106,7 @@ public class ProceduralGeneration : MonoBehaviour
         }
     }
 
-    void fixWalls()
+    public void fixWalls()
     {
         for (int x = 0; x < width; x++)
         {
@@ -122,43 +153,62 @@ public class ProceduralGeneration : MonoBehaviour
 
         // }
 
-        if (isSame(tiles, bottom_L))
+        if (isSame(tiles, bottom_L) || isSame(tiles, bottom_L2) || isSame(tiles, bottom_L3))
         {
             return tile_bottom_L;
         }
-        if (isSame(tiles, bottom_M))
+        if (isSame(tiles, bottom_M) || isSame(tiles, bottom_M2) || isSame(tiles, bottom_M3) || isSame(tiles, bottom_M4))
         {
             return tile_bottom_M;
         }
-        if (isSame(tiles, bottom_R))
+        if (isSame(tiles, bottom_R) || isSame(tiles, bottom_R2) || isSame(tiles, bottom_R3))
         {
             return tile_bottom_R;
         }
 
-        if (isSame(tiles, top_L))
+        if (isSame(tiles, top_L) || isSame(tiles, top_L2) || isSame(tiles, top_L3))
         {
             return tile_top_L;
         }
-        if (isSame(tiles, top_M))
+        if (isSame(tiles, top_M) || isSame(tiles, top_M2) || isSame(tiles, top_M3) || isSame(tiles, top_M4))
         {
             return tile_top_M;
         }
-        if (isSame(tiles, top_R))
+        if (isSame(tiles, top_R) || isSame(tiles, top_R2) || isSame(tiles, top_R3))
         {
-            return tile_bottom_R;
+            return tile_top_R;
         }
 
-        if (isSame(tiles, right))
+        if (isSame(tiles, right) || isSame(tiles, right2) || isSame(tiles, right3) || isSame(tiles, right4))
         {
             return tile_right;
         }
-        if (isSame(tiles, left))
+        if (isSame(tiles, left) || isSame(tiles, left2) || isSame(tiles, left3) || isSame(tiles, left4))
         {
             return tile_left;
         }
 
-        return tile_plain;
+        if (isSame(tiles, bl))
+        {
+            return corner_b_L;
+        }
 
+        if (isSame(tiles, br))
+        {
+            return corner_b_R;
+        }
+
+        if (isSame(tiles, tl))
+        {
+            return corner_t_L;
+        }
+
+        if (isSame(tiles, tr))
+        {
+            return corner_t_R;
+        }
+
+        return tile_plain;
     }
 
     bool isSame(List<Tuple<int, int>> first, List<Tuple<int, int>> second)
@@ -195,7 +245,7 @@ public class ProceduralGeneration : MonoBehaviour
         }
     }
 
-    void SmoothMap()
+    public void SmoothMap()
     {
         for (int x = 0; x < width; x++)
         {
