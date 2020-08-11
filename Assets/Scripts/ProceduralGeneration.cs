@@ -58,8 +58,14 @@ public class ProceduralGeneration : MonoBehaviour
     List<Tuple<int, int>> tl = new List<Tuple<int, int>> { Tuple.Create(-1, 1) };
     List<Tuple<int, int>> tr = new List<Tuple<int, int>> { Tuple.Create(1, 1) };
 
+    List<Tuple<int, int>> isEmptyAround = new List<Tuple<int, int>> { };
+
     [Range(0, 100)]
     public int randomFillPercent;
+    public string pathToDecorationsFolder;
+
+    GameObject[] decorationPrefabs;
+    public GameObject decorationsGameObject;
 
 
     public Tile tile_plain, tile_wall,
@@ -69,7 +75,7 @@ public class ProceduralGeneration : MonoBehaviour
         tile_top_M, tile_top_R;
     public Tile corner_b_L, corner_b_R, corner_t_L, corner_t_R;
 
-    public Tile[] decorations;
+    public Tile[] tileDecorations;
 
     private void Awake()
     {
@@ -77,6 +83,7 @@ public class ProceduralGeneration : MonoBehaviour
     }
     void Start()
     {
+        decorationPrefabs = Resources.LoadAll<GameObject>("Tiles/" + pathToDecorationsFolder);
         GenerateMap();
         fixWalls();
     }
@@ -113,8 +120,8 @@ public class ProceduralGeneration : MonoBehaviour
 
     public Tile decorationTiles()
     {
-        int rand = UnityEngine.Random.Range(0, decorations.Length);
-        return decorations[rand];
+        int rand = UnityEngine.Random.Range(0, tileDecorations.Length);
+        return tileDecorations[rand];
     }
 
     public void fixWalls()
@@ -219,9 +226,15 @@ public class ProceduralGeneration : MonoBehaviour
             return corner_t_R;
         }
 
-        if (UnityEngine.Random.Range(0, 10) == 1)
+        int rand = UnityEngine.Random.Range(0, 20);
+
+        if (rand == 1)
         {
             return decorationTiles();
+        }
+        else if (rand == 2 && isSame(tiles, isEmptyAround))
+        {
+            instantiateDecoration(new Vector3(gridX, gridY, 0));
         }
         return tile_plain;
     }
@@ -309,5 +322,12 @@ public class ProceduralGeneration : MonoBehaviour
     void setTile(int x, int y, Tile tile)
     {
         tm.SetTile(new Vector3Int(x, y, 0), tile);
+    }
+
+    void instantiateDecoration(Vector3 pos)
+    {
+        int rand = UnityEngine.Random.Range(0, decorationPrefabs.Length);
+        GameObject newDec = Instantiate(decorationPrefabs[rand], pos, Quaternion.identity);
+        newDec.transform.parent = decorationsGameObject.transform;
     }
 }

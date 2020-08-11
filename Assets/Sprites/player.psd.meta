@@ -26,6 +26,45 @@ TextureImporter:
   - first:
       213: -540375121143967267
     second: FrontLeft
+  - first:
+      213: 2173022535036171327
+    second: player_0
+  - first:
+      213: -8775669450942186682
+    second: player_1
+  - first:
+      213: -5111187077381760586
+    second: player_2
+  - first:
+      213: 6953047553433328330
+    second: player_3
+  - first:
+      213: 1755772209161902963
+    second: player_4
+  - first:
+      213: 4334783836991956000
+    second: player_0
+  - first:
+      213: 7388399842426930641
+    second: player_1
+  - first:
+      213: 6757282713640645180
+    second: player_2
+  - first:
+      213: -6781412095145881161
+    second: player_3
+  - first:
+      213: -7328426347454937097
+    second: player_4
+  - first:
+      213: 5865078278364869351
+    second: player_5
+  - first:
+      213: -2023923573111878767
+    second: player_6
+  - first:
+      213: -540375121143967267
+    second: player_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,11 +186,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Front
+      name: player_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -168,11 +207,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontRight
+      name: player_1
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -189,11 +228,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Right
+      name: player_2
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -210,11 +249,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackRight
+      name: player_3
       rect:
         serializedVersion: 2
         x: 96
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -231,10 +270,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Back
+      name: player_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 0
         width: 32
         height: 32
@@ -245,17 +284,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37b19919581cd5810800000000000000
-      internalID: 1755772209161902963
+      spriteID: 7f7c55d80133c4a90800000000000000
+      internalID: -7328426347454937097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackLeft
+      name: player_5
       rect:
         serializedVersion: 2
-        x: 160
+        x: 32
         y: 0
         width: 32
         height: 32
@@ -273,10 +312,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Left
+      name: player_6
       rect:
         serializedVersion: 2
-        x: 192
+        x: 64
         y: 0
         width: 32
         height: 32
@@ -294,10 +333,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FrontLeft
+      name: player_7
       rect:
         serializedVersion: 2
-        x: 224
+        x: 96
         y: 0
         width: 32
         height: 32
