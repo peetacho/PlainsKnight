@@ -7,25 +7,23 @@ using UnityEditor;
 
 public class Enemy : MonoBehaviour
 {
-    // public float idleSpeed = 1.0f;
-    // private Coroutine slimeUpdate;
-    // public float agroSpeed = 2.0f;
-    // private bool chasingPlayer = false;
+    public float idleSpeed = 1.0f;
+    private Coroutine idleCoroutine;
     AIPath aipath;
     AIDestinationSetter aIDestinationSetter;
     Animator gfxAnim;
     SpriteRenderer gfxSr;
     CircleCollider2D circleCollider2D;
     private Rigidbody2D rb;
-    private float distToPlayer;
     private GameObject projectileInstance;
-    private Transform player;
+    public float distToPlayer;
+    public Transform player;
 
 
     [Header("Artwork:")]
     public EnemyScriptObj enemyScriptObj;
     [SerializeField]
-    private GameObject projectile;
+    public GameObject projectile;
 
 
     [Header("Enemy Stats:")]
@@ -63,8 +61,14 @@ public class Enemy : MonoBehaviour
         initArt();
         initUniqueScript();
 
-        // slimeUpdate = StartCoroutine(Idle());
-        StartCoroutine(Shoot());
+        // idle
+        idleCoroutine = StartCoroutine(Idle());
+
+        // if enemy has a unique script
+        if (!enemyScriptObj.uniqueScript)
+        {
+            StartCoroutine(Shoot());
+        }
 
     }
 
@@ -148,7 +152,9 @@ public class Enemy : MonoBehaviour
         if (distToPlayer > enemyViewRange)
         {
             aipath.canSearch = false;
-            // play idle state
+
+            // disable ai path component so idle coroutine can be played. (this allows for rigidbody to be manipulated)
+            aipath.enabled = false;
         }
         else
         {
@@ -164,6 +170,11 @@ public class Enemy : MonoBehaviour
             {
                 aipath.canSearch = true;
             }
+
+            // enable ai path component so idle coroutine will be stopped
+            // enemy will go back to following player
+            aipath.enabled = true;
+            StopCoroutine(idleCoroutine);
         }
 
     }
@@ -290,11 +301,38 @@ public class Enemy : MonoBehaviour
 
                 // print(vector);
                 projRB.AddForce(vector);
-
             }
-
             // waits for attackDelayTime seconds
             yield return new WaitForSeconds(attackDelayTime);
+        }
+    }
+
+    IEnumerator Idle()
+    {
+        while (true)
+        {
+            float mag = 1.5f;
+            // Move in a direction
+            float dirX = UnityEngine.Random.Range(-mag, mag);
+            float dirY = UnityEngine.Random.Range(-mag, mag);
+            // print(dirX.ToString() + "    " + dirY.ToString());
+            rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
+
+            // print("idle");
+
+            if (rb.velocity.x >= 0.01f)
+            {
+                transform.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (rb.velocity.x <= -0.01f)
+            {
+                transform.localScale = new Vector3(1f, 1f, 1f);
+            }
+
+            float wait = UnityEngine.Random.Range(0.7f, 4f);
+
+            // Wait
+            yield return new WaitForSeconds(wait);
         }
     }
 

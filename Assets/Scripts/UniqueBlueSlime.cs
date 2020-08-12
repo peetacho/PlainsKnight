@@ -4,35 +4,55 @@ using UnityEngine;
 
 public class UniqueBlueSlime : MonoBehaviour
 {
+    Enemy es;
+    public int projectileNum = 3;
+    public float angle = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("slime!");
-
+        es = GetComponent<Enemy>();
+        StartCoroutine(Shoot());
     }
 
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            if (es.distToPlayer <= es.attackRange)
+            {
+                Vector3 enemyPos = transform.position;
+                Vector3 playerPos = es.player.transform.position;
+                for (var i = 1; i <= projectileNum; i++)
+                {
+                    angle = (360f * i) / projectileNum;
+                    GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
+
+                    Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+
+                    float dirX = es.rangedAttackSpeed * 5 * Mathf.Sin((angle * Mathf.PI) / 180f);
+                    float dirY = es.rangedAttackSpeed * 5 * Mathf.Cos((angle * Mathf.PI) / 180f);
+
+                    // find vector between player position and enemy position
+                    Vector3 vector = new Vector3(dirX, dirY, 0f);
+
+                    // debug line
+                    Debug.DrawLine(enemyPos, vector + enemyPos, Color.red, es.attackDelayTime);
+
+                    // print(vector);
+                    projRB.AddForce(vector);
+                    if (angle > 360f)
+                    {
+                        angle = 0f;
+                    }
+                }
+            }
+            // waits for attackDelayTime seconds
+            yield return new WaitForSeconds(es.attackDelayTime);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
     }
-
-    // IEnumerator Idle()
-    // {
-    //     // int direction = 1;
-
-    //     while (true)
-    //     {
-    //         // Move in a direction
-    //         float dirX = Random.Range(-1.0f, 1.0f);
-    //         float dirY = Random.Range(-1.0f, 1.0f);
-    //         // print(dirX.ToString() + "    " + dirY.ToString());
-    //         rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
-    //         // print("idle");
-
-    //         float wait = Random.Range(0.7f, 1.5f);
-
-    //         // Wait
-    //         yield return new WaitForSeconds(wait);
-    //     }
-    // }
 }
