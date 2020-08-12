@@ -2556,7 +2556,7 @@ MonoBehaviour:
   height: 40
   width: 60
   seed: 0
-  useRandomSeed: 1
+  useRandomSeed: 0
   centerBoundX: {x: 19, y: 40}
   centerBoundY: {x: 15, y: 25}
   randomFillPercent: 40
