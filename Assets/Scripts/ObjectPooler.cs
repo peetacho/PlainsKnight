@@ -11,10 +11,10 @@ public class ObjectPooler : MonoBehaviour
         public GameObject prefab;
         public int size;
     }
-
+    private GameObject[] poolObjectsProjectile;
     public List<Pool> pools;
-
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public int poolProjectileSize = 50;
+    private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     // singleton
     public static ObjectPooler i;
@@ -29,6 +29,16 @@ public class ObjectPooler : MonoBehaviour
         // create dictionary of string and queue
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
+        // loops through projectiles in resources folder and adds to list of Pools
+        poolObjectsProjectile = Resources.LoadAll<GameObject>("Enemy Projectiles");
+        foreach (GameObject poolObject in poolObjectsProjectile)
+        {
+            Pool p = new Pool();
+            p.tag = poolObject.name;
+            p.prefab = poolObject;
+            p.size = poolProjectileSize;
+            pools.Add(p);
+        }
 
         // loop through pool items inside of the list of pools
         foreach (Pool pool in pools)
@@ -49,7 +59,6 @@ public class ObjectPooler : MonoBehaviour
             // add object pool to poolDictionary
             poolDictionary.Add(pool.tag, objectPool);
         }
-
     }
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
@@ -78,5 +87,4 @@ public class ObjectPooler : MonoBehaviour
         poolDictionary[tag].Enqueue(obj);
         obj.transform.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
-
 }

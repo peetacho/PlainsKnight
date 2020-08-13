@@ -18,6 +18,7 @@ public class ProceduralGeneration : MonoBehaviour
     public Vector2 centerBoundX = new Vector2(19, 40);
     public Vector2 centerBoundY = new Vector2(15, 25);
 
+    #region Tile Directions
     // BOTTOM
     List<Tuple<int, int>> bottom_L = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1) };
     List<Tuple<int, int>> bottom_L2 = new List<Tuple<int, int>> { Tuple.Create(-1, -1), Tuple.Create(-1, 0), Tuple.Create(0, -1), Tuple.Create(1, -1) };
@@ -59,6 +60,8 @@ public class ProceduralGeneration : MonoBehaviour
     List<Tuple<int, int>> tr = new List<Tuple<int, int>> { Tuple.Create(1, 1) };
 
     List<Tuple<int, int>> isEmptyAround = new List<Tuple<int, int>> { };
+
+    #endregion Tile Directions
 
     [Range(0, 100)]
     public int randomFillPercent;
@@ -242,6 +245,36 @@ public class ProceduralGeneration : MonoBehaviour
     bool isSame(List<Tuple<int, int>> first, List<Tuple<int, int>> second)
     {
         return Enumerable.SequenceEqual(first.OrderBy(t => t), second.OrderBy(t => t));
+    }
+
+    // https://stackoverflow.com/questions/3669970/compare-two-listt-objects-for-equality-ignoring-order
+    // lmao what?? 
+    public static bool ScrambledEquals<T>(IEnumerable<T> list1, IEnumerable<T> list2)
+    {
+        var cnt = new Dictionary<T, int>();
+        foreach (T s in list1)
+        {
+            if (cnt.ContainsKey(s))
+            {
+                cnt[s]++;
+            }
+            else
+            {
+                cnt.Add(s, 1);
+            }
+        }
+        foreach (T s in list2)
+        {
+            if (cnt.ContainsKey(s))
+            {
+                cnt[s]--;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return cnt.Values.All(c => c == 0);
     }
 
     void RandomFillMap()

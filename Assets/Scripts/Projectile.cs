@@ -36,7 +36,6 @@ public class Projectile : MonoBehaviour
     void destroyInTime()
     {
         gameObject.SetActive(false);
-        // ObjectPooler.i.destroyProj("Enemy_Blue_Projectile", gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,15 +43,11 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
-            // Destroy(gameObject);
             gameObject.SetActive(false);
-            // ObjectPooler.i.destroyProj("Enemy_Blue_Projectile", gameObject);
         }
         else if (other.gameObject.tag == "Obstacle")
         {
-            // Destroy(gameObject);
             gameObject.SetActive(false);
-            // ObjectPooler.i.destroyProj("Enemy_Blue_Projectile", gameObject);
         }
     }
 }
