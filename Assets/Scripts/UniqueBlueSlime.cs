@@ -26,7 +26,11 @@ public class UniqueBlueSlime : MonoBehaviour
                 for (var i = 1; i <= projectileNum; i++)
                 {
                     angle = (360f * i) / projectileNum;
-                    GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
+
+                    // GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
+                    GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(es.projectile.name, enemyPos, transform.rotation);
+                    print("blue " + es.projectile.name);
+
 
                     Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 

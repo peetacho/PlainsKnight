@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         transform.Rotate(0, 0, rotZ);
-        Destroy(gameObject, DestroyTime);
+        // Destroy(gameObject, DestroyTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,11 +20,13 @@ public class Projectile : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else if (other.gameObject.tag == "Obstacle")
         {
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

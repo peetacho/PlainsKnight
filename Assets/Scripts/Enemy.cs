@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     SpriteRenderer gfxSr;
     CircleCollider2D circleCollider2D;
     private Rigidbody2D rb;
-    private GameObject projectileInstance;
     public float distToPlayer;
     public Transform player;
 
@@ -63,8 +62,9 @@ public class Enemy : MonoBehaviour
 
         // idle
         idleCoroutine = StartCoroutine(Idle());
+        // print("brown " + projectile.name);
 
-        // if enemy has a unique script
+        // if enemy does not have a unique script
         if (!enemyScriptObj.uniqueScript)
         {
             StartCoroutine(Shoot());
@@ -288,7 +288,9 @@ public class Enemy : MonoBehaviour
                 Vector3 enemyPos = transform.position;
                 Vector3 playerPos = player.transform.position;
 
-                projectileInstance = Instantiate(projectile, enemyPos, transform.rotation);
+                // GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
+                GameObject projectileInstance = ObjectPooler.i.SpawnFromPool("Enemy_Blue_Projectile", enemyPos, transform.rotation);
+                // print("brown " + projectile.name);
 
                 Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 

@@ -17,8 +17,8 @@ MonoBehaviour:
   meleeDamage: 0.25
   rangedDamage: 0.25
   rangedAttackSpeed: 45
-  attackDelayTime: 0.5
-  attackRange: 5
+  attackDelayTime: 2
+  attackRange: 10
   movementSpeed: 2
   colliderRadius: 0.5
   projectile: {fileID: 3143618259537959414, guid: 1616ce37faa6e4c998e00a878944773f,
