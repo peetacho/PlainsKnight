@@ -25,7 +25,7 @@ MonoBehaviour:
     type: 3}
   enemyIsRanged: 0
   enemyViewRange: 8
-  uniqueScript: {fileID: 0}
+  uniqueScript: {fileID: 11500000, guid: b70c8f4707eaf4bddb30ac4594f87e09, type: 3}
   artwork: {fileID: -8963772635242594009, guid: 061a72d8c6e0b45ddb8dd1108606ff6e,
     type: 3}
   controller: {fileID: 9100000, guid: 9d1a744da67c04660b965026b8a92cd9, type: 2}

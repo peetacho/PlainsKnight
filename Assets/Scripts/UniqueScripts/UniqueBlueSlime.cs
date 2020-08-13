@@ -29,7 +29,7 @@ public class UniqueBlueSlime : MonoBehaviour
 
                     // GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
                     GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(es.projectile.name, enemyPos, transform.rotation);
-                    print("blue " + es.projectile.name);
+                    // print("blue " + es.projectile.name);
 
 
                     Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();

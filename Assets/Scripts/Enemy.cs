@@ -8,7 +8,10 @@ using UnityEditor;
 public class Enemy : MonoBehaviour
 {
     public float idleSpeed = 1.0f;
+    public Vector2 idleVector;
     private Coroutine idleCoroutine;
+    public LayerMask playerLayer;
+    public bool isIdle;
     AIPath aipath;
     AIDestinationSetter aIDestinationSetter;
     Animator gfxAnim;
@@ -61,14 +64,15 @@ public class Enemy : MonoBehaviour
         initUniqueScript();
 
         // idle
+        // isIdle = true;
         idleCoroutine = StartCoroutine(Idle());
         // print("brown " + projectile.name);
 
         // if enemy does not have a unique script
-        if (!enemyScriptObj.uniqueScript)
-        {
-            StartCoroutine(Shoot());
-        }
+        // if (!enemyScriptObj.uniqueScript)
+        // {
+        //     StartCoroutine(Shoot());
+        // }
 
     }
 
@@ -148,6 +152,7 @@ public class Enemy : MonoBehaviour
     // manages enemy state
     void manageState()
     {
+
         // if distance from enemy to player is greater than the enemies' view range, enemy stops searching. 
         if (distToPlayer > enemyViewRange)
         {
@@ -164,6 +169,7 @@ public class Enemy : MonoBehaviour
                 if (distToPlayer <= attackRange)
                 {
                     aipath.canSearch = false;
+
                 }
             }
             else
@@ -174,9 +180,7 @@ public class Enemy : MonoBehaviour
             // enable ai path component so idle coroutine will be stopped
             // enemy will go back to following player
             aipath.enabled = true;
-            StopCoroutine(idleCoroutine);
         }
-
     }
 
     // flips enemy. uses aipath module
@@ -289,7 +293,7 @@ public class Enemy : MonoBehaviour
                 Vector3 playerPos = player.transform.position;
 
                 // GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
-                GameObject projectileInstance = ObjectPooler.i.SpawnFromPool("Enemy_Blue_Projectile", enemyPos, transform.rotation);
+                GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(projectile.name, enemyPos, transform.rotation);
                 // print("brown " + projectile.name);
 
                 Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
@@ -317,10 +321,10 @@ public class Enemy : MonoBehaviour
             // Move in a direction
             float dirX = UnityEngine.Random.Range(-mag, mag);
             float dirY = UnityEngine.Random.Range(-mag, mag);
-            // print(dirX.ToString() + "    " + dirY.ToString());
-            rb.velocity = (new Vector2(idleSpeed * dirX, idleSpeed * dirY));
 
-            // print("idle");
+            idleVector = new Vector2(idleSpeed * dirX, idleSpeed * dirY);
+            // print(dirX.ToString() + "    " + dirY.ToString());
+            rb.velocity = idleVector;
 
             if (rb.velocity.x >= 0.01f)
             {
@@ -332,12 +336,11 @@ public class Enemy : MonoBehaviour
             }
 
             float wait = UnityEngine.Random.Range(0.7f, 4f);
-
             // Wait
             yield return new WaitForSeconds(wait);
+
         }
     }
-
 
     // draws attackRange from transform.position
     private void OnDrawGizmosSelected()

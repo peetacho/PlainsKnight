@@ -228,6 +228,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371bf45b371d84c1db375f30273683ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleSpeed: 1
+  idleVector: {x: 0, y: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  isIdle: 0
+  distToPlayer: 0
+  player: {fileID: 0}
   enemyScriptObj: {fileID: 11400000, guid: 64ce1edf171804d1e8cab2409cd90255, type: 2}
   projectile: {fileID: 0}
   maxHealth: 0
