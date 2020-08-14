@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterController2D : MonoBehaviour
 {
-
+    public ParticleSystem dashParticle;
     Rigidbody2D rb;
     Animator animator;
     private Animator weaponAnimator;
@@ -24,6 +24,7 @@ public class CharacterController2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dashParticle.Play();
         rb = GetComponent<Rigidbody2D>();
         animator = GameObject.Find("PlayerGFX").GetComponent<Animator>();
         Physics.IgnoreLayerCollision(8, 9);
@@ -50,15 +51,52 @@ public class CharacterController2D : MonoBehaviour
         }
 
     }
+    public bool isDashing = false;
     private void FixedUpdate()
     {
-        Move();
-
+        if (!isDashing)
+        {
+            Move();
+        }
+        else
+        {
+            isDashing = !isDashing;
+        }
     }
+    public float dashForce;
+
+    public IEnumerator dash()
+    {
+        if (isDashing)
+        {
+            print("DASH");
+            Vector2 dashVector = movementDirection;
+            dashForce = 75.0f;
+            rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
+            // transform.position = Vector2.MoveTowards(transform.position, dashVector, 1.0f);
+        }
+
+        yield return new WaitForSeconds(1.0f);
+    }
+
+    private float coolDownDash = 1.0f;
+    private float nextDash = 0.0f;
 
     public void Dash()
     {
-        print("DASH");
+        if (Time.time > nextDash)
+        {
+            isDashing = true;
+            // StartCoroutine(dash());
+
+            print("DASH");
+            Vector2 dashVector = movementDirection;
+            dashForce = 55.0f;
+            rb.AddForce(dashVector * dashForce, ForceMode2D.Impulse);
+            // transform.position = Vector2.MoveTowards(transform.position, dashVector, 1.0f);
+
+            nextDash = Time.time + coolDownDash;
+        }
     }
 
     public void Swing()
@@ -83,7 +121,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 // print("Enemy!    " + enemy);
                 // deals damage to enemy in collider. 
-                enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage); // Enemy.TakeDamage(); // for static use
+                enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM); // Enemy.TakeDamage(); // for static use
             }
             if (enemy.tag == "Projectile")
             {
@@ -101,32 +139,38 @@ public class CharacterController2D : MonoBehaviour
 
     void Move()
     {
-        rb.velocity = MOVEMENT_BASE_SPEED * (movementDirection * movementSpeed);
+        rb.velocity = MOVEMENT_BASE_SPEED * (movementDirection);
     }
 
     IEnumerator rangedWeaponShoot()
     {
         while (true)
         {
+            float shootDelayTime = GetWeapon.shootDelayTimeR;
             Vector3 playerPos = transform.position;
             shootDirection = new Vector2((shootingJoystick.Horizontal), shootingJoystick.Vertical);
             shootDirection.Normalize();
 
             if (shootDirection != Vector2.zero)
             {
+                // play swing animation
+                GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
+
+                // get angle between start vector of (-0.45,-0.45) and shoot direction 
                 float angle = Vector2.SignedAngle(new Vector2(-0.45f, -0.45f), shootDirection);
+
                 // print(angle);
-                GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
-                // GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(es.projectile.name, enemyPos, transform.rotation);
+                // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
+                GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileR.name, transform.position, Quaternion.identity);
 
                 Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 
                 // print(vector);
-                projRB.AddForce(shootDirection * 250.0f);
+                projRB.AddForce(shootDirection * GetWeapon.attackSpeedR * 5);
                 projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(shootDelayTime);
         }
     }
 

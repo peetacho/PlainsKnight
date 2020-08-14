@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897a7dcd0f6d745f18dba06b1ff50fbe, type: 3}
+  m_Name: Red Slime
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  enemyName: Red Slime
+  meleeDamage: 0.25
+  rangedDamage: 0.25
+  rangedAttackSpeed: 30
+  attackDelayTime: 2
+  attackRange: 10
+  movementSpeed: 2
+  colliderRadius: 0.5
+  projectile: {fileID: 3143618259537959414, guid: 1616ce37faa6e4c998e00a878944773f,
+    type: 3}
+  enemyIsRanged: 0
+  enemyViewRange: 7
+  uniqueScript: {fileID: 11500000, guid: 63dddd98b2c924430a7daacc8e7c8395, type: 3}
+  artwork: {fileID: -6875693984060724655, guid: b8beeea7ad7ed48e69571d962e5745ff,
+    type: 3}
+  controller: {fileID: 9100000, guid: 9e73a2e378c1f4de2975c93f7a28e7b1, type: 2}

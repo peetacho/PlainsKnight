@@ -127,7 +127,10 @@ public class Enemy : MonoBehaviour
     // initializes animator and sprite renderer
     void initArt()
     {
+        // gets animator of enemyGFX
         gfxAnim = transform.GetChild(0).GetComponent<Animator>();
+
+        // gets sprite renderer of enemyGFX
         gfxSr = transform.GetChild(0).GetComponent<SpriteRenderer>();
         gfxAnim.runtimeAnimatorController = enemyScriptObj.controller;
         gfxSr.sprite = enemyScriptObj.artwork;
@@ -196,7 +199,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, float critPercent, float weaponKnockBack)
     {
         Color32 popUpColorNormal = new Color32(255, 255, 255, 255);
         Color32 popUpColorCrit = new Color32(209, 0, 53, 255);
@@ -210,7 +213,7 @@ public class Enemy : MonoBehaviour
         float dirX = UnityEngine.Random.Range(-0.8f, 0.8f);
 
         // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
-        if (rand == GetWeapon.weaponCriticalChanceM)
+        if (rand == critPercent)
         {
             // hits 3 times! 1/100 chance
             for (var i = 0; i < 2; i++)
@@ -223,7 +226,7 @@ public class Enemy : MonoBehaviour
                 Popup.Create(enemyPos, damage, popUpColorCrit, isCrit);
             }
         }
-        else if (rand < GetWeapon.weaponCriticalChanceM)
+        else if (rand < critPercent)
         {
             // one critical strike. hits 1 time and has a chance depending on the weapon
             damage *= 2;
@@ -232,43 +235,41 @@ public class Enemy : MonoBehaviour
         }
 
         enemyPos = new Vector2(enemyPos.x + dirX, enemyPos.y + dirY);
+
+        // creates damage pop up
         Popup.Create(enemyPos, damage, popUpColorNormal, isCrit);
 
         currentHealth -= damage;
+        // chakes camera
         FindObjectOfType<CameraShake>().Shake(0.01f, 0.01f);
+
+        // starts hurt and knockback coroutines
         StartCoroutine(Hurt());
-        StartCoroutine(Knockback());
+        StartCoroutine(Knockback(weaponKnockBack));
     }
 
-    IEnumerator Knockback()
+    IEnumerator Knockback(float weaponKnockBack)
     {
-        float weaponKnockBack = GetWeapon.weaponKnockBackM;
-        Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
+        // Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
 
-        yield return new WaitForSeconds(0.2f);
-        transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+        // yield return new WaitForSeconds(0.2f);
+        // transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
+        aipath.enabled = false;
+        Vector2 difference = (transform.position - player.transform.position).normalized * weaponKnockBack;
+        rb.AddForce(difference, ForceMode2D.Impulse);
+
+        // add stunned animation?
+        // print("stun");
+
+        yield return new WaitForSeconds(1.0f);
+        aipath.enabled = true;
     }
 
     IEnumerator Hurt()
     {
-        Color gc = gfxSr.color;
-        Color hurtColor = new Vector4(gc.r, gc.g, gc.b, 0.2f);
-        gc = hurtColor;
-
-        yield return new WaitForSeconds(0.2f);
-
-        hurtColor = new Vector4(gc.r, gc.g, gc.b, 1.0f);
-        gc = hurtColor;
-
-        yield return new WaitForSeconds(0.2f);
-
-        hurtColor = new Vector4(gc.r, gc.g, gc.b, 0.2f);
-        gc = hurtColor;
-
+        // plays hurt animation
+        gfxAnim.Play("hurt");
         yield return new WaitForSeconds(0.1f);
-
-        hurtColor = new Vector4(gc.r, gc.g, gc.b, 1.0f);
-        gc = hurtColor;
     }
 
     void OnCollisionEnter2D(Collision2D other)

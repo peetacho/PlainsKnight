@@ -14,17 +14,18 @@ public class GetWeapon : MonoBehaviour
     public static float weaponDamageM;
     public static float weaponCriticalChanceM;
     public static float weaponKnockBackM;
-    public int attackSpeedM;
+    public static int attackSpeedM;
     public static float attackRangeXM;
     public static float attackRangeYM;
 
     [Header("Ranged Weapon Stats:")]
-    public string weaponNameR;
+    public static string weaponNameR;
     public static float weaponDamageR;
     public static float weaponCriticalChanceR;
     public static float weaponKnockBackR;
-    public int attackSpeedR;
-    public int manaCostR;
+    public static int attackSpeedR;
+    public static int manaCostR;
+    public static float shootDelayTimeR;
     public static GameObject weaponProjectileR;
 
 
@@ -42,13 +43,13 @@ public class GetWeapon : MonoBehaviour
 
         if (rw != null)
         {
-            print("rw not null");
+            // print("rw not null");
             initStatsR();
         }
 
         if (mw != null)
         {
-            print("mw not null");
+            // print("mw not null");
             initStatsM();
         }
 
@@ -75,6 +76,7 @@ public class GetWeapon : MonoBehaviour
         attackSpeedR = rw.attackSpeed;
         manaCostR = rw.manaCost;
         weaponProjectileR = rw.rangedWeaponProjectile;
+        shootDelayTimeR = rw.shootDelayTime;
 
     }
 

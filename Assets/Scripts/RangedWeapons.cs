@@ -12,6 +12,7 @@ public class RangedWeapons : ScriptableObject
     public int attackSpeed;
     public Sprite artwork;
     public int manaCost;
+    public float shootDelayTime;
     public GameObject rangedWeaponProjectile;
 
     // [Header("Range x/y for position of the weapon.")]

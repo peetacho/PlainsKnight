@@ -40,6 +40,17 @@ public class ObjectPooler : MonoBehaviour
             pools.Add(p);
         }
 
+        // loops through projectiles in resources folder and adds to list of Pools
+        poolObjectsProjectile = Resources.LoadAll<GameObject>("Player Projectiles");
+        foreach (GameObject poolObject in poolObjectsProjectile)
+        {
+            Pool p = new Pool();
+            p.tag = poolObject.name;
+            p.prefab = poolObject;
+            p.size = poolProjectileSize;
+            pools.Add(p);
+        }
+
         // loop through pool items inside of the list of pools
         foreach (Pool pool in pools)
         {
@@ -48,6 +59,7 @@ public class ObjectPooler : MonoBehaviour
             {
                 // create object
                 GameObject obj = Instantiate(pool.prefab);
+                obj.transform.parent = this.transform;
 
                 // disable object 
                 obj.SetActive(false);

@@ -63,7 +63,7 @@ public class EnemyGenerator : MonoBehaviour
         }
     }
 
-    void generateStart()
+    public void generateStart()
     {
         for (var i = 0; i < totalEnemies; i++)
         {

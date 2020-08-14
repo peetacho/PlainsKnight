@@ -40,14 +40,40 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.gameObject.tag == "Player")
-        // {
-        //     FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
-        //     gameObject.SetActive(false);
-        // }
-        // else if (other.gameObject.tag == "Obstacle")
-        // {
-        //     gameObject.SetActive(false);
-        // }
+        // print(gameObject.name);
+        if (gameObject.name.Contains("Enemy"))
+        {
+            enemyProjectile(other);
+        }
+        else if (gameObject.name.Contains("Player"))
+        {
+            playerProjectile(other);
+        }
+    }
+
+    void enemyProjectile(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
+            gameObject.SetActive(false);
+        }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    void playerProjectile(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(GetWeapon.weaponDamageR, GetWeapon.weaponCriticalChanceR, GetWeapon.weaponKnockBackR);
+            gameObject.SetActive(false);
+        }
+        else if (other.gameObject.tag == "Obstacle")
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
