@@ -210,7 +210,7 @@ public class Enemy : MonoBehaviour
         float dirX = UnityEngine.Random.Range(-0.8f, 0.8f);
 
         // GetWeapon.weaponCriticalChance is a float from 0.0f to 1.0f. All numbers <= this number will be considered the 'critical' chance.
-        if (rand == GetWeapon.weaponCriticalChance)
+        if (rand == GetWeapon.weaponCriticalChanceM)
         {
             // hits 3 times! 1/100 chance
             for (var i = 0; i < 2; i++)
@@ -223,7 +223,7 @@ public class Enemy : MonoBehaviour
                 Popup.Create(enemyPos, damage, popUpColorCrit, isCrit);
             }
         }
-        else if (rand < GetWeapon.weaponCriticalChance)
+        else if (rand < GetWeapon.weaponCriticalChanceM)
         {
             // one critical strike. hits 1 time and has a chance depending on the weapon
             damage *= 2;
@@ -242,7 +242,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Knockback()
     {
-        float weaponKnockBack = GetWeapon.weaponKnockBack;
+        float weaponKnockBack = GetWeapon.weaponKnockBackM;
         Vector2 difference = (transform.position - player.transform.position) * weaponKnockBack;
 
         yield return new WaitForSeconds(0.2f);

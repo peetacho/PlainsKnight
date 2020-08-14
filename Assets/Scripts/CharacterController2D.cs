@@ -11,8 +11,9 @@ public class CharacterController2D : MonoBehaviour
     private float movementSpeed;
     private Animator weaponClone;
 
-
-    public Joystick joystick;
+    public Vector2 shootDirection;
+    public Joystick movementJoystick;
+    public Joystick shootingJoystick;
     public static Vector2 movementDirection;
     public Transform weaponPointRange;
     public LayerMask enemyLayers;
@@ -27,12 +28,14 @@ public class CharacterController2D : MonoBehaviour
         animator = GameObject.Find("PlayerGFX").GetComponent<Animator>();
         Physics.IgnoreLayerCollision(8, 9);
 
+        StartCoroutine(rangedWeaponShoot());
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        ProcessInputs();
+        ProcessMovementInputs();
 
         Animate();
 
@@ -50,6 +53,7 @@ public class CharacterController2D : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
     }
 
     public void Dash()
@@ -67,11 +71,11 @@ public class CharacterController2D : MonoBehaviour
     public void meleeAttack()
     {
         // get weapon damage from get weapon script. static variable.
-        float damage = GetWeapon.weaponDamage;
+        float damage = GetWeapon.weaponDamageM;
 
 
         // creates box and if enemies are in it, they take damage
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0), enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0), enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies)
         {
@@ -92,7 +96,7 @@ public class CharacterController2D : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(weaponPointRange.position, new Vector3(GetWeapon.attackRangeX, GetWeapon.attackRangeY, 0));
+        Gizmos.DrawWireCube(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0));
     }
 
     void Move()
@@ -100,9 +104,35 @@ public class CharacterController2D : MonoBehaviour
         rb.velocity = MOVEMENT_BASE_SPEED * (movementDirection * movementSpeed);
     }
 
-    void ProcessInputs()
+    IEnumerator rangedWeaponShoot()
     {
-        movementDirection = new Vector2(joystick.Horizontal, joystick.Vertical);
+        while (true)
+        {
+            Vector3 playerPos = transform.position;
+            shootDirection = new Vector2((shootingJoystick.Horizontal), shootingJoystick.Vertical);
+            shootDirection.Normalize();
+
+            if (shootDirection != Vector2.zero)
+            {
+                float angle = Vector2.SignedAngle(new Vector2(-0.45f, -0.45f), shootDirection);
+                // print(angle);
+                GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
+                // GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(es.projectile.name, enemyPos, transform.rotation);
+
+                Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+
+                // print(vector);
+                projRB.AddForce(shootDirection * 250.0f);
+                projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    void ProcessMovementInputs()
+    {
+        movementDirection = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
         movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
         movementDirection.Normalize();
     }

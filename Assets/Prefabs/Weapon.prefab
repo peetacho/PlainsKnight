@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8512173c57629465ab9e324f27e6b961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mw: {fileID: 11400000, guid: f060c7358785c46ffa2bf52eef4c1c5c, type: 2}
+  mw: {fileID: 0}
+  rw: {fileID: 11400000, guid: 95e7499f3fdd147068fa1b9919eff438, type: 2}
   weaponName: 
   attackSpeed: 0
 --- !u!50 &6042551778724519793

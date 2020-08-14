@@ -7,13 +7,15 @@ public class RangedWeapons : ScriptableObject
 {
     public new string name;
     public int damage;
+    public float weaponCriticalChance;
+    public float weaponKnockBack;
     public int attackSpeed;
     public Sprite artwork;
     public int manaCost;
-    public RangedWeaponProjectile rangedWeaponProjectile;
+    public GameObject rangedWeaponProjectile;
 
-    [Header("Range x/y for position of the weapon.")]
-    public float rangeX;
-    public float rangeY;
+    // [Header("Range x/y for position of the weapon.")]
+    // public float rangeX;
+    // public float rangeY;
 
 }

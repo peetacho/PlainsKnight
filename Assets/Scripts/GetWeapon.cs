@@ -5,17 +5,29 @@ using UnityEngine;
 public class GetWeapon : MonoBehaviour
 {
     public MeleeWeapons mw;
+    public RangedWeapons rw;
     SpriteRenderer sr;
     BoxCollider2D box;
 
-    [Header("Weapon Stats:")]
-    public string weaponName;
-    public static float weaponDamage;
-    public static float weaponCriticalChance;
-    public static float weaponKnockBack;
-    public int attackSpeed;
-    public static float attackRangeX;
-    public static float attackRangeY;
+    [Header("Melee Weapon Stats:")]
+    public string weaponNameM;
+    public static float weaponDamageM;
+    public static float weaponCriticalChanceM;
+    public static float weaponKnockBackM;
+    public int attackSpeedM;
+    public static float attackRangeXM;
+    public static float attackRangeYM;
+
+    [Header("Ranged Weapon Stats:")]
+    public string weaponNameR;
+    public static float weaponDamageR;
+    public static float weaponCriticalChanceR;
+    public static float weaponKnockBackR;
+    public int attackSpeedR;
+    public int manaCostR;
+    public static GameObject weaponProjectileR;
+
+
 
     void Awake()
     {
@@ -27,19 +39,42 @@ public class GetWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initStats();
+
+        if (rw != null)
+        {
+            print("rw not null");
+            initStatsR();
+        }
+
+        if (mw != null)
+        {
+            print("mw not null");
+            initStatsM();
+        }
+
     }
 
-    public void initStats()
+    public void initStatsM()
     {
         sr.sprite = mw.artwork;
-        weaponName = mw.name;
-        weaponDamage = mw.damage;
-        weaponCriticalChance = mw.criticalChance;
-        weaponKnockBack = mw.weaponKnockBack;
-        attackSpeed = mw.attackSpeed;
-        attackRangeX = mw.rangeX;
-        attackRangeY = mw.rangeY;
+        weaponNameM = mw.name;
+        weaponDamageM = mw.damage;
+        weaponCriticalChanceM = mw.criticalChance;
+        weaponKnockBackM = mw.weaponKnockBack;
+        attackSpeedM = mw.attackSpeed;
+        attackRangeXM = mw.rangeX;
+        attackRangeYM = mw.rangeY;
+    }
+    public void initStatsR()
+    {
+        sr.sprite = rw.artwork;
+        weaponNameR = rw.name;
+        weaponDamageR = rw.damage;
+        weaponCriticalChanceR = rw.weaponCriticalChance;
+        weaponKnockBackR = rw.weaponKnockBack;
+        attackSpeedR = rw.attackSpeed;
+        manaCostR = rw.manaCost;
+        weaponProjectileR = rw.rangedWeaponProjectile;
 
     }
 

@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Starter_Wand
   damage: 5
+  weaponCriticalChance: 0
+  weaponKnockBack: 0
   attackSpeed: 5
   artwork: {fileID: -5428206428529569624, guid: cc0e30972078341e989cb5834e0279e1,
     type: 3}
   manaCost: 0
-  rangedWeaponProjectile: {fileID: 0}
-  rangeX: 0
-  rangeY: 0
+  rangedWeaponProjectile: {fileID: 8124671232949684928, guid: 59ad8ec04ac9544a1bea8e2f2d9cb5c9,
+    type: 3}

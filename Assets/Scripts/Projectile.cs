@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0, rotZ);
+        // transform.Rotate(0, 0, rotZ);
         // Destroy(gameObject, DestroyTime);
         Invoke("destroyInTime", DestroyTime);
     }
@@ -40,14 +40,14 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
-        {
-            FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
-            gameObject.SetActive(false);
-        }
-        else if (other.gameObject.tag == "Obstacle")
-        {
-            gameObject.SetActive(false);
-        }
+        // if (other.gameObject.tag == "Player")
+        // {
+        //     FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
+        //     gameObject.SetActive(false);
+        // }
+        // else if (other.gameObject.tag == "Obstacle")
+        // {
+        //     gameObject.SetActive(false);
+        // }
     }
 }
