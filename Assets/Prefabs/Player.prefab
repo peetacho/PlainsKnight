@@ -23,12 +23,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3555901875858878700}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.059, y: -0.096, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.099, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3555901876993631041}
-  m_RootOrder: 1
+  m_Father: {fileID: 2242768293207497534}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3555901876690061823
 GameObject:
@@ -92,7 +92,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 3555901876690061808}
-  - {fileID: 3555901875858878701}
   - {fileID: 2242768293207497534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -130,15 +129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f828b0c2f3c294a8dafd9fde040641bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashParticle: {fileID: 0}
-  shootDirection: {x: 0, y: 0}
+  dashParticle: {fileID: 7806834046283001955}
   movementJoystick: {fileID: 0}
   shootingJoystick: {fileID: 0}
   weaponPointRange: {fileID: 3555901876690061808}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 512
-  MOVEMENT_BASE_SPEED: 5
+  MOVEMENT_BASE_SPEED: 4.5
   isDashing: 0
   dashForce: 0
 --- !u!61 &3555901876993631042
@@ -180,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 6042551778724519795, guid: fe20a251990ff469aac1a03d9f5c671a, type: 3}
-  weaponTransform: {fileID: 0}
+  weaponGFXTransform: {fileID: 0}
 --- !u!1 &8913192958282935655
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,9 +208,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3555901875858878701}
   - {fileID: 7806834046283001954}
   m_Father: {fileID: 3555901876993631041}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7057206812031861399
 SpriteRenderer:
@@ -253,7 +252,7 @@ SpriteRenderer:
   m_SortingLayerID: -522514217
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4334783836991956000, guid: 6ecf2c822b13c4bb1bb5edc9bfa3288e,
+  m_Sprite: {fileID: 1755772209161902963, guid: 6ecf2c822b13c4bb1bb5edc9bfa3288e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -262,7 +261,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &6715750525232944601
@@ -329,7 +328,7 @@ PrefabInstance:
     - target: {fileID: 4820318434005124459, guid: 1c7d0f14356ad4c66bcb10dfbf15020b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4820318434005124459, guid: 1c7d0f14356ad4c66bcb10dfbf15020b,
         type: 3}
@@ -351,6 +350,12 @@ PrefabInstance:
 --- !u!4 &7806834046283001954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4820318434005124459, guid: 1c7d0f14356ad4c66bcb10dfbf15020b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3364826777946633481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7806834046283001955 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4820318434005124458, guid: 1c7d0f14356ad4c66bcb10dfbf15020b,
     type: 3}
   m_PrefabInstance: {fileID: 3364826777946633481}
   m_PrefabAsset: {fileID: 0}

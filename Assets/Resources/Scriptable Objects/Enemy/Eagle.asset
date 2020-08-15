@@ -21,7 +21,7 @@ MonoBehaviour:
   attackRange: 10
   movementSpeed: 3
   colliderRadius: 0.5
-  projectile: {fileID: 3143618259537959414, guid: 1616ce37faa6e4c998e00a878944773f,
+  projectile: {fileID: 3143618259537959414, guid: db1725777f8674da1b5d5b2a02ab12ef,
     type: 3}
   enemyIsRanged: 0
   enemyViewRange: 8

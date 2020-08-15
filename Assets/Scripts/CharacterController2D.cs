@@ -11,7 +11,7 @@ public class CharacterController2D : MonoBehaviour
     private float movementSpeed;
     private Animator weaponClone;
 
-    public Vector2 shootDirection;
+    public static Vector2 shootDirection;
     public Joystick movementJoystick;
     public Joystick shootingJoystick;
     public static Vector2 movementDirection;
@@ -29,14 +29,20 @@ public class CharacterController2D : MonoBehaviour
         animator = GameObject.Find("PlayerGFX").GetComponent<Animator>();
         Physics.IgnoreLayerCollision(8, 9);
 
-        StartCoroutine(rangedWeaponShoot());
+        StartCoroutine(rightJoyStick());
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         ProcessMovementInputs();
+
+        // get shoot direction
+        shootDirection = new Vector2((shootingJoystick.Horizontal), shootingJoystick.Vertical);
+        shootDirection.Normalize();
 
         Animate();
 
@@ -102,7 +108,7 @@ public class CharacterController2D : MonoBehaviour
     public void Swing()
     {
         weaponClone = GameObject.Find("Weapon(Clone)").GetComponent<Animator>();
-        weaponClone.Play("Swing1");
+        // weaponClone.Play("Swing1");
         meleeAttack();
     }
 
@@ -132,9 +138,16 @@ public class CharacterController2D : MonoBehaviour
 
     }
 
+    [Range(0.0f, 2.0f)]
+    public float meleeRange;
+
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0));
+        // Gizmos.DrawWireCube(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0));
+        if (WeaponHandler.weaponRangedPos != null)
+        {
+            Gizmos.DrawWireSphere(WeaponHandler.weaponRangedPos.transform.position, meleeRange);
+        }
     }
 
     void Move()
@@ -142,35 +155,116 @@ public class CharacterController2D : MonoBehaviour
         rb.velocity = MOVEMENT_BASE_SPEED * (movementDirection);
     }
 
-    IEnumerator rangedWeaponShoot()
+    IEnumerator rightJoyStick()
     {
+
         while (true)
         {
-            float shootDelayTime = GetWeapon.shootDelayTimeR;
-            Vector3 playerPos = transform.position;
-            shootDirection = new Vector2((shootingJoystick.Horizontal), shootingJoystick.Vertical);
-            shootDirection.Normalize();
 
-            if (shootDirection != Vector2.zero)
+            // if current weapon type is melee
+            if (GetWeapon.currentWeaponType == GetWeapon.weapontype.melee)
             {
-                // play swing animation
-                GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
-
-                // get angle between start vector of (-0.45,-0.45) and shoot direction 
-                float angle = Vector2.SignedAngle(new Vector2(-0.45f, -0.45f), shootDirection);
-
-                // print(angle);
-                // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
-                GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileR.name, transform.position, Quaternion.identity);
-
-                Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
-
-                // print(vector);
-                projRB.AddForce(shootDirection * GetWeapon.attackSpeedR * 5);
-                projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
+                float attackDelayTime = GetWeapon.shootDelayTimeM;
+                meleeWeaponShoot();
+                yield return new WaitForSeconds(attackDelayTime);
+            }
+            else if (GetWeapon.currentWeaponType == GetWeapon.weapontype.ranged)
+            {
+                // ranged weapons
+                float shootDelayTime = GetWeapon.shootDelayTimeR;
+                rangedWeaponShoot();
+                yield return new WaitForSeconds(shootDelayTime);
             }
 
-            yield return new WaitForSeconds(shootDelayTime);
+
+        }
+    }
+
+    void meleeWeaponShoot()
+    {
+        // get weapon damage from get weapon script. static variable.
+        float damage = GetWeapon.weaponDamageM;
+
+        // swings only if right joystick is moving
+        if (shootDirection != Vector2.zero)
+        {
+            // GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
+            GameObject.Find("Weapon(Clone)").GetComponent<Animator>().SetTrigger("Attack");
+            float angle = Vector2.SignedAngle(new Vector2(-1f, -1f), shootDirection);
+
+            // print(angle);
+            // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
+            GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileM.name, WeaponHandler.weaponRangedPos.transform.position, Quaternion.identity);
+
+            Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+
+            // print(vector);
+            projRB.AddForce(shootDirection * 50 * 5);
+            projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
+
+
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(WeaponHandler.weaponRangedPos.transform.position, meleeRange, enemyLayers);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                if (enemy.tag == "Enemy")
+                {
+                    // print("Enemy!    " + enemy);
+                    // deals damage to enemy in collider. 
+                    enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM); // Enemy.TakeDamage(); // for static use
+                }
+                if (enemy.tag == "Projectile")
+                {
+                    print("projectile!    " + enemy);
+                    Destroy(enemy.gameObject);
+                }
+            }
+
+
+
+
+        }
+
+        // creates box and if enemies are in it, they take damage
+        // Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0), enemyLayers);
+
+        // foreach (Collider2D enemy in hitEnemies)
+        // {
+        //     if (enemy.tag == "Enemy")
+        //     {
+        //         // print("Enemy!    " + enemy);
+        //         // deals damage to enemy in collider. 
+        //         enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM); // Enemy.TakeDamage(); // for static use
+        //     }
+        //     if (enemy.tag == "Projectile")
+        //     {
+        //         print("projectile!    " + enemy);
+        //         Destroy(enemy.gameObject);
+        //     }
+        // }
+    }
+
+    void rangedWeaponShoot()
+    {
+        Vector3 playerPos = transform.position;
+
+        if (shootDirection != Vector2.zero)
+        {
+            // play swing animation
+            // GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
+
+            // get angle between start vector of (-0.45,-0.45) and shoot direction 
+            float angle = Vector2.SignedAngle(new Vector2(-1f, -1f), shootDirection);
+
+            // print(angle);
+            // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
+            GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileR.name, WeaponHandler.weaponRangedPos.transform.position, Quaternion.identity);
+
+            Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
+
+            // print(vector);
+            projRB.AddForce(shootDirection * GetWeapon.attackSpeedR * 5);
+            projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
 

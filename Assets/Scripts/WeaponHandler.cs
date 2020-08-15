@@ -7,10 +7,12 @@ public class WeaponHandler : MonoBehaviour
 
     // weapon prefab
     public GameObject weapon;
-    public Transform weaponTransform;
+    public static GameObject weaponRangedPos;
+    public static GameObject weaponGFX;
+    public Transform weaponGFXTransform;
 
     // newly created weapons
-    SpriteRenderer weaponSR;
+    SpriteRenderer weaponGFXSR;
     GameObject newWeapon;
     string weaponCloneName;
 
@@ -22,8 +24,9 @@ public class WeaponHandler : MonoBehaviour
     private void Start()
     {
         // Get weapon point location
-        weaponPoint = gameObject.transform.Find("Weapon Point").gameObject;
+        weaponPoint = gameObject.transform.Find("PlayerGFX").Find("Weapon Point").gameObject;
         weaponCloneName = weapon.name + "(Clone)";
+        fromAngle = new Vector2(1f, 1f);
 
     }
 
@@ -38,39 +41,60 @@ public class WeaponHandler : MonoBehaviour
         if (gameObject.transform.Find(weaponCloneName))
         {
             flipWeapon();
+            rotateWeapon();
         }
+
+    }
+    Vector2 fromAngle;
+    float angle;
+    Vector2 shootDirection;
+
+    void rotateWeapon()
+    {
+        shootDirection = CharacterController2D.shootDirection;
+        if (shootDirection != Vector2.zero)
+        {
+            weaponGFXSR.flipX = true;
+            weaponGFXTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        else
+        {
+            weaponGFXSR.flipX = false;
+        }
+        // determines the angle of the weapon relative to the shoot direction
+        angle = Vector2.SignedAngle(fromAngle, shootDirection);
+        weaponGFXTransform.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     void flipWeapon()
     {
-        // weapon point to right
+        // character to right
         if (CharacterController2D.movementDirection.x > 0f)
         {
-            // weaponSR.flipX = false;
-            weaponTransform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
-
+            weaponGFXTransform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
         }
-        // weaponpoint to left
+        // character to left
         else if (CharacterController2D.movementDirection.x < 0f)
         {
-            // weaponSR.flipX = true;
-            weaponTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            weaponGFXTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
     //Invoked when a button is pressed.
     public void SetParent()
     {
-        // // allows only one object to be instantiated.
-        // if (!gameObject.transform.Find(weaponCloneName))
-        // {
+
+        // create new weapon
         newWeapon = Instantiate(weapon, weaponPoint.transform.position, Quaternion.Euler(transform.rotation.eulerAngles));
-        weaponSR = newWeapon.transform.Find("WeaponGFX").GetComponent<SpriteRenderer>();
-        weaponTransform = newWeapon.transform.Find("WeaponGFX").transform;
+        weaponGFX = newWeapon.transform.Find("WeaponGFX").gameObject;
+        weaponRangedPos = weaponGFX.transform.Find("RangedPos").gameObject;
+        weaponGFXTransform = weaponGFX.transform;
+        weaponGFXSR = weaponGFXTransform.Find("SR").GetComponent<SpriteRenderer>();
+
         //Makes the GameObject "newParent" the parent of the GameObject "player".
         newWeapon.transform.parent = gameObject.transform;
-        weaponTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        // }
+        weaponGFXTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
     }
 
     // public void DetachFromParent()

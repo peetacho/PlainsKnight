@@ -1558,12 +1558,6 @@ MonoBehaviour:
   heart2: {fileID: 3747750675799526550, guid: d82d68de0b0ed445b9ea37951dcf32fd, type: 3}
   heart3: {fileID: 8697324091474509116, guid: 05904088bb6e2466dadde051ffc27bc0, type: 3}
   heart4: {fileID: 9179951253904554444, guid: 0ec518e2b23ac4af78b1ae21d7394d12, type: 3}
---- !u!198 &1091740304 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7806834046283001955, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
-    type: 3}
-  m_PrefabInstance: {fileID: 3555901876430461288}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1126991895
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,7 +2265,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2582,12 +2576,12 @@ PrefabInstance:
     - target: {fileID: 3555901875858878701, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.125
+      value: -0.141
       objectReference: {fileID: 0}
     - target: {fileID: 3555901875858878701, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.089
+      value: -0.144
       objectReference: {fileID: 0}
     - target: {fileID: 3555901876993631041, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
@@ -2651,20 +2645,14 @@ PrefabInstance:
       objectReference: {fileID: 1493764784}
     - target: {fileID: 3555901876993631053, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
-      propertyPath: dashParticle
-      value: 
-      objectReference: {fileID: 1091740304}
+      propertyPath: meleeRange
+      value: 0.88
+      objectReference: {fileID: 0}
     - target: {fileID: 7057206812031861399, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7057206812031861399, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 2173022535036171327, guid: 6ecf2c822b13c4bb1bb5edc9bfa3288e,
-        type: 3}
     - target: {fileID: 7057206812031861399, guid: 4a08f78ad20b043c9a6b9d5c517629fd,
         type: 3}
       propertyPath: m_SortingLayer

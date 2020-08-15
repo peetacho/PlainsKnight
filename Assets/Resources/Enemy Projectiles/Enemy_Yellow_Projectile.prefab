@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8124671232949684928
+--- !u!1 &3143618259537959414
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8124671232949684931}
-  - component: {fileID: 8124671232949684930}
-  - component: {fileID: 8124671232949684929}
-  - component: {fileID: 8124671232949684933}
-  - component: {fileID: 8124671232949684932}
-  - component: {fileID: 6848537120565885644}
-  - component: {fileID: 3591249290985227513}
+  - component: {fileID: 3143618259537959413}
+  - component: {fileID: 3143618259537959412}
+  - component: {fileID: 3143618259537959415}
+  - component: {fileID: 3143618259537959411}
+  - component: {fileID: 3143618259537959410}
+  - component: {fileID: -8905264151285470726}
+  - component: {fileID: 7689455895795750863}
   m_Layer: 9
-  m_Name: Player_Fireball
+  m_Name: Enemy_Yellow_Projectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8124671232949684931
+--- !u!4 &3143618259537959413
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
+  m_GameObject: {fileID: 3143618259537959414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8124671232949684930
+--- !u!95 &3143618259537959412
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
-  m_Enabled: 0
+  m_GameObject: {fileID: 3143618259537959414}
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a41c9bc8406dd46a988fba5691db5f9f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7c8ef3d9138864c3e95f84d9f6fc6f9c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -55,13 +55,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!212 &8124671232949684929
+--- !u!212 &3143618259537959415
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
+  m_GameObject: {fileID: 3143618259537959414}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,10 +91,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -522514217
-  m_SortingLayer: 1
-  m_SortingOrder: 2
-  m_Sprite: {fileID: -7583409310137716746, guid: cc0e30972078341e989cb5834e0279e1,
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -3884526399057705116, guid: 92d068b4ce0084d29a6e4aba2c3a13b3,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -106,14 +106,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &8124671232949684933
+--- !u!50 &3143618259537959411
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
+  m_GameObject: {fileID: 3143618259537959414}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -127,13 +127,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &8124671232949684932
+--- !u!58 &3143618259537959410
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
+  m_GameObject: {fileID: 3143618259537959414}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -142,14 +142,14 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
---- !u!114 &6848537120565885644
+  m_Radius: 0.56
+--- !u!114 &-8905264151285470726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
+  m_GameObject: {fileID: 3143618259537959414}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e53605136b324933aa24720dc9b39a7, type: 3}
@@ -157,16 +157,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DestroyTime: 10
   projectileDamage: 0.25
-  rotZ: 0
---- !u!96 &3591249290985227513
+  rotZ: 15
+--- !u!96 &7689455895795750863
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8124671232949684928}
-  m_Enabled: 1
+  m_GameObject: {fileID: 3143618259537959414}
+  m_Enabled: 0
   m_CastShadows: 2
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -198,7 +198,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.2
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -206,8 +206,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.112140656
+        time: 0.0017127991
+        value: 0.09193039
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -228,8 +228,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.4901961, g: 0.0627451, b: 0.13725491, a: 1}
-      key1: {r: 0.9811321, g: 0.58775365, b: 0.61801344, a: 1}
+      key0: {r: 0.24313727, g: 0.6862745, b: 0.9607844, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -258,7 +258,7 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 3
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1

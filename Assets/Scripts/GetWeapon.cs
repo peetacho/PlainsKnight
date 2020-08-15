@@ -15,6 +15,9 @@ public class GetWeapon : MonoBehaviour
     public static float weaponCriticalChanceM;
     public static float weaponKnockBackM;
     public static int attackSpeedM;
+    public static GameObject weaponProjectileM;
+    public static float weaponProjectileDamageM;
+    public static float shootDelayTimeM;
     public static float attackRangeXM;
     public static float attackRangeYM;
 
@@ -28,11 +31,14 @@ public class GetWeapon : MonoBehaviour
     public static float shootDelayTimeR;
     public static GameObject weaponProjectileR;
 
+    public enum weapontype { ranged, melee };
+    public static weapontype currentWeaponType;
+
 
 
     void Awake()
     {
-        sr = transform.Find("WeaponGFX").GetComponent<SpriteRenderer>();
+        sr = transform.Find("WeaponGFX").Find("SR").GetComponent<SpriteRenderer>();
         box = GetComponent<BoxCollider2D>();
 
     }
@@ -40,19 +46,54 @@ public class GetWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         if (rw != null)
         {
             // print("rw not null");
             initStatsR();
+            currentWeaponType = weapontype.ranged;
         }
 
         if (mw != null)
         {
             // print("mw not null");
             initStatsM();
+            currentWeaponType = weapontype.melee;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (rw != null)
+        {
+            // print("rw not null");
+            initStatsR();
+            currentWeaponType = weapontype.ranged;
         }
 
+        if (mw != null)
+        {
+            // print("mw not null");
+            initStatsM();
+            currentWeaponType = weapontype.melee;
+        }
+        clearStats();
+    }
+
+    void clearStats()
+    {
+        if (currentWeaponType == weapontype.melee)
+        {
+            // print("clear ranged");
+        }
+        else
+        {
+            // print("clear melee");
+        }
+    }
+
+    public static weapontype GetWeapontype()
+    {
+        return currentWeaponType;
     }
 
     public void initStatsM()
@@ -63,6 +104,9 @@ public class GetWeapon : MonoBehaviour
         weaponCriticalChanceM = mw.criticalChance;
         weaponKnockBackM = mw.weaponKnockBack;
         attackSpeedM = mw.attackSpeed;
+        weaponProjectileM = mw.meleeWeaponProjectile;
+        weaponProjectileDamageM = mw.meleeWeaponProjectileDamage;
+        shootDelayTimeM = mw.shootDelayTime;
         attackRangeXM = mw.rangeX;
         attackRangeYM = mw.rangeY;
     }
@@ -77,7 +121,6 @@ public class GetWeapon : MonoBehaviour
         manaCostR = rw.manaCost;
         weaponProjectileR = rw.rangedWeaponProjectile;
         shootDelayTimeR = rw.shootDelayTime;
-
     }
 
 }

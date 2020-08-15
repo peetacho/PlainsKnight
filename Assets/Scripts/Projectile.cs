@@ -5,6 +5,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float DestroyTime;// = 2.0f;
+
+    [Header("Projectile Damage to player:")]
     public float projectileDamage; // 0.25f;
     public float rotZ; // = 15.0f;
 
@@ -13,7 +15,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // transform.Rotate(0, 0, rotZ);
+        transform.Rotate(0, 0, rotZ);
         // Destroy(gameObject, DestroyTime);
         Invoke("destroyInTime", DestroyTime);
     }
@@ -68,7 +70,18 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Enemy>().TakeDamage(GetWeapon.weaponDamageR, GetWeapon.weaponCriticalChanceR, GetWeapon.weaponKnockBackR);
+            // if current weapon type is melee
+            if (GetWeapon.currentWeaponType == GetWeapon.weapontype.melee)
+            {
+                // melee weapons
+                other.gameObject.GetComponent<Enemy>().TakeDamage(GetWeapon.weaponProjectileDamageM, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM);
+            }
+
+            else if (GetWeapon.currentWeaponType == GetWeapon.weapontype.ranged)
+            {
+                // ranged weapons
+                other.gameObject.GetComponent<Enemy>().TakeDamage(GetWeapon.weaponDamageR, GetWeapon.weaponCriticalChanceR, GetWeapon.weaponKnockBackR);
+            }
             gameObject.SetActive(false);
         }
         else if (other.gameObject.tag == "Obstacle")

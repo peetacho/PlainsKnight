@@ -110,10 +110,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1270188277953829907}
+  - component: {fileID: 1270188277953829917}
   - component: {fileID: 1270188277953829906}
   - component: {fileID: 1270188277953829905}
   - component: {fileID: 1270188277953829916}
-  - component: {fileID: 1270188277953829917}
   - component: {fileID: 1270188277953829918}
   - component: {fileID: 8922819794178540591}
   - component: {fileID: 6254416126221302656}
@@ -139,6 +139,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270188277953829917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270188277953829904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371bf45b371d84c1db375f30273683ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSpeed: 1
+  idleVector: {x: 0, y: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  isIdle: 0
+  distToPlayer: 0
+  player: {fileID: 0}
+  enemyScriptObj: {fileID: 0}
+  projectile: {fileID: 0}
+  maxHealth: 0
+  currentHealth: 0
+  enemyName: Enemy
+  meleeDamage: 0
+  rangedDamage: 0
+  rangedAttackSpeed: 0
+  attackDelayTime: 0
+  attackRange: 0
+  movementSpeed: 0
+  colliderRadius: 0
+  enemyIsRanged: 0
+  enemyViewRange: 0
 --- !u!114 &1270188277953829906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,40 +251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!114 &1270188277953829917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270188277953829904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 371bf45b371d84c1db375f30273683ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleSpeed: 1
-  idleVector: {x: 0, y: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  isIdle: 0
-  distToPlayer: 0
-  player: {fileID: 0}
-  enemyScriptObj: {fileID: 11400000, guid: 64ce1edf171804d1e8cab2409cd90255, type: 2}
-  projectile: {fileID: 0}
-  maxHealth: 0
-  currentHealth: 0
-  enemyName: Enemy
-  meleeDamage: 0
-  rangedDamage: 0
-  rangedAttackSpeed: 0
-  attackDelayTime: 0
-  attackRange: 0
-  movementSpeed: 0
-  colliderRadius: 0
-  enemyIsRanged: 0
-  enemyViewRange: 0
 --- !u!58 &1270188277953829918
 CircleCollider2D:
   m_ObjectHideFlags: 0

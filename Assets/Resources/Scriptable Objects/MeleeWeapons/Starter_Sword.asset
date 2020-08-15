@@ -18,5 +18,8 @@ MonoBehaviour:
   weaponKnockBack: 1.01
   attackSpeed: 1
   artwork: {fileID: 6761164967045977113, guid: cc0e30972078341e989cb5834e0279e1, type: 3}
+  meleeWeaponProjectile: {fileID: 8124671232949684928, guid: de0c8738eb6b445f0a4f4f9179efdbb5,
+    type: 3}
+  shootDelayTime: 0.5
   rangeX: 1.5
   rangeY: 1.5

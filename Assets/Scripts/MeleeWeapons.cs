@@ -11,6 +11,9 @@ public class MeleeWeapons : ScriptableObject
     public float weaponKnockBack;
     public int attackSpeed;
     public Sprite artwork;
+    public GameObject meleeWeaponProjectile;
+    public float meleeWeaponProjectileDamage;
+    public float shootDelayTime;
 
     [Header("Range x/y for position of the weapon.")]
     public float rangeX;
