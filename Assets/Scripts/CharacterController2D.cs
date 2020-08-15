@@ -36,8 +36,6 @@ public class CharacterController2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         ProcessMovementInputs();
 
         // get shoot direction
@@ -55,8 +53,8 @@ public class CharacterController2D : MonoBehaviour
             float newX = (Mathf.Abs(weaponPointRange.localPosition.x) * -1);
             weaponPointRange.localPosition = new Vector2(newX, weaponPointRange.localPosition.y);
         }
-
     }
+
     public bool isDashing = false;
     private void FixedUpdate()
     {
@@ -105,39 +103,6 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    public void Swing()
-    {
-        weaponClone = GameObject.Find("Weapon(Clone)").GetComponent<Animator>();
-        // weaponClone.Play("Swing1");
-        meleeAttack();
-    }
-
-    public void meleeAttack()
-    {
-        // get weapon damage from get weapon script. static variable.
-        float damage = GetWeapon.weaponDamageM;
-
-
-        // creates box and if enemies are in it, they take damage
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0), enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            if (enemy.tag == "Enemy")
-            {
-                // print("Enemy!    " + enemy);
-                // deals damage to enemy in collider. 
-                enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM); // Enemy.TakeDamage(); // for static use
-            }
-            if (enemy.tag == "Projectile")
-            {
-                print("projectile!    " + enemy);
-                Destroy(enemy.gameObject);
-            }
-        }
-
-    }
-
     [Range(0.0f, 2.0f)]
     public float meleeRange;
 
@@ -157,10 +122,8 @@ public class CharacterController2D : MonoBehaviour
 
     IEnumerator rightJoyStick()
     {
-
         while (true)
         {
-
             // if current weapon type is melee
             if (GetWeapon.currentWeaponType == GetWeapon.weapontype.melee)
             {
@@ -175,8 +138,6 @@ public class CharacterController2D : MonoBehaviour
                 rangedWeaponShoot();
                 yield return new WaitForSeconds(shootDelayTime);
             }
-
-
         }
     }
 
@@ -219,29 +180,7 @@ public class CharacterController2D : MonoBehaviour
                     Destroy(enemy.gameObject);
                 }
             }
-
-
-
-
         }
-
-        // creates box and if enemies are in it, they take damage
-        // Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(weaponPointRange.position, new Vector3(GetWeapon.attackRangeXM, GetWeapon.attackRangeYM, 0), enemyLayers);
-
-        // foreach (Collider2D enemy in hitEnemies)
-        // {
-        //     if (enemy.tag == "Enemy")
-        //     {
-        //         // print("Enemy!    " + enemy);
-        //         // deals damage to enemy in collider. 
-        //         enemy.gameObject.GetComponent<Enemy>().TakeDamage(damage, GetWeapon.weaponCriticalChanceM, GetWeapon.weaponKnockBackM); // Enemy.TakeDamage(); // for static use
-        //     }
-        //     if (enemy.tag == "Projectile")
-        //     {
-        //         print("projectile!    " + enemy);
-        //         Destroy(enemy.gameObject);
-        //     }
-        // }
     }
 
     void rangedWeaponShoot()

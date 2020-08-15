@@ -93,10 +93,4 @@ public class ObjectPooler : MonoBehaviour
         return obj;
     }
 
-    public void destroyProj(string tag, GameObject obj)
-    {
-        obj.SetActive(false);
-        poolDictionary[tag].Enqueue(obj);
-        obj.transform.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-    }
 }

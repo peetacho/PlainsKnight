@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DestroyTime: 10
   projectileDamage: 0.25
-  rotZ: 15
+  rotZ: 0
 --- !u!96 &3591249290985227513
 TrailRenderer:
   serializedVersion: 2

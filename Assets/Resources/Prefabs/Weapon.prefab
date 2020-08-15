@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mw: {fileID: 11400000, guid: f060c7358785c46ffa2bf52eef4c1c5c, type: 2}
   rw: {fileID: 0}
-  weaponNameM: 
+  maxWeaponAmt: 0
 --- !u!50 &6042551778724519793
 Rigidbody2D:
   serializedVersion: 4
@@ -319,8 +319,7 @@ SpriteRenderer:
   m_SortingLayerID: -522514217
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 6761164967045977113, guid: cc0e30972078341e989cb5834e0279e1,
-    type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -328,6 +327,6 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

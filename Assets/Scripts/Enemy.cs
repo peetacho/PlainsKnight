@@ -64,16 +64,7 @@ public class Enemy : MonoBehaviour
         initUniqueScript();
 
         // idle
-        // isIdle = true;
         idleCoroutine = StartCoroutine(Idle());
-        // print("brown " + projectile.name);
-
-        // if enemy does not have a unique script
-        // if (!enemyScriptObj.uniqueScript)
-        // {
-        //     StartCoroutine(Shoot());
-        // }
-
     }
 
     // gets unique script
@@ -96,7 +87,10 @@ public class Enemy : MonoBehaviour
         maxHealth = es.maxHealth;
         currentHealth = maxHealth;
 
+        // set gameobject name
         enemyName = es.enemyName;
+        gameObject.name = enemyName;
+
         meleeDamage = es.meleeDamage;
         rangedDamage = es.rangedDamage;
         rangedAttackSpeed = es.rangedAttackSpeed;
