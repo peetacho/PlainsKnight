@@ -18,6 +18,7 @@ public class GetWeapon : MonoBehaviour
     public static int attackSpeedM;
     public static GameObject weaponProjectileM;
     public static float weaponProjectileDamageM;
+    public static float weaponProjectileSpeedM;
     public static float shootDelayTimeM;
 
     [Header("Ranged Weapon Stats:")]
@@ -134,6 +135,7 @@ public class GetWeapon : MonoBehaviour
         attackSpeedM = mw.attackSpeed;
         weaponProjectileM = mw.meleeWeaponProjectile;
         weaponProjectileDamageM = mw.meleeWeaponProjectileDamage;
+        weaponProjectileSpeedM = mw.meleeWeaponProjectileSpeed;
         shootDelayTimeM = mw.shootDelayTime;
         attackRangeM = mw.meleeRange;
     }

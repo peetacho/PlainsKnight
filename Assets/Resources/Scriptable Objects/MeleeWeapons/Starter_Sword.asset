@@ -22,4 +22,5 @@ MonoBehaviour:
   meleeWeaponProjectile: {fileID: 8124671232949684928, guid: de0c8738eb6b445f0a4f4f9179efdbb5,
     type: 3}
   meleeWeaponProjectileDamage: 1
+  meleeWeaponProjectileSpeed: 30
   shootDelayTime: 0.5

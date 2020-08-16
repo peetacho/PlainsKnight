@@ -145,6 +145,7 @@ public class CharacterController2D : MonoBehaviour
     {
         // get weapon damage from get weapon script. static variable.
         float damage = GetWeapon.weaponDamageM;
+        Vector3 weaponRangedPos = WeaponHandler.weaponRangedPos.transform.position;
 
         // swings only if right joystick is moving
         if (shootDirection != Vector2.zero)
@@ -155,16 +156,21 @@ public class CharacterController2D : MonoBehaviour
 
             // print(angle);
             // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
-            GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileM.name, WeaponHandler.weaponRangedPos.transform.position, Quaternion.identity);
+            GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(GetWeapon.weaponProjectileM.name, weaponRangedPos, Quaternion.identity);
 
             Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 
             // print(vector);
-            projRB.AddForce(shootDirection * 50 * 5);
+            Vector2 force = shootDirection * GetWeapon.weaponProjectileSpeedM * 5;
+            projRB.AddForce(force);
+
+            // Vector3 force3 = new Vector3(force.x, force.y, 0);
+            // Debug.DrawLine(weaponRangedPos, weaponRangedPos + force3, Color.yellow, 1.0f);
+
             projectileInstance.transform.eulerAngles = new Vector3(0, 0, angle);
 
 
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(WeaponHandler.weaponRangedPos.transform.position, meleeRange, enemyLayers);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(weaponRangedPos, meleeRange, enemyLayers);
 
             foreach (Collider2D enemy in hitEnemies)
             {
@@ -176,8 +182,8 @@ public class CharacterController2D : MonoBehaviour
                 }
                 if (enemy.tag == "Projectile")
                 {
-                    print("projectile!    " + enemy);
-                    Destroy(enemy.gameObject);
+                    // print("projectile!    " + enemy);
+                    enemy.gameObject.SetActive(false);
                 }
             }
         }

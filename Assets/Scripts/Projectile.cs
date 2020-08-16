@@ -17,7 +17,11 @@ public class Projectile : MonoBehaviour
     {
         transform.Rotate(0, 0, rotZ);
         // Destroy(gameObject, DestroyTime);
-        Invoke("destroyInTime", DestroyTime);
+
+        if (DestroyTime != 0)
+        {
+            Invoke("destroyInTime", DestroyTime);
+        }
     }
 
     private void Awake()

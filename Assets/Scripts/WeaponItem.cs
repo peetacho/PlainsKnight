@@ -89,6 +89,21 @@ public class WeaponItem : MonoBehaviour
         }
         else if (ow.Count >= maxWeaponsAmt)
         {
+            // this creates a new weapon item game object that will replace the weapon the player is currently holding.
+            // creates a drop weapon on ground effect
+            GameObject resourcesWeaponItem = Resources.Load<GameObject>("Prefabs/WeaponItem");
+            GameObject newWeaponItem = Instantiate(resourcesWeaponItem, transform.position, Quaternion.identity);
+            // sees if current weapon is of type rangedweapons
+            if (ow[cwIndex].GetType() == typeof(RangedWeapons))
+            {
+                newWeaponItem.GetComponent<WeaponItem>().rangedWeapons = (RangedWeapons)ow[cwIndex];
+            }
+            // sees if current weapon is of type meleeweapons
+            else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
+            {
+                newWeaponItem.GetComponent<WeaponItem>().meleeWeapons = (MeleeWeapons)ow[cwIndex];
+            }
+
             if (meleeWeapons != null)
             {
                 // FindObjectOfType<GetWeapon>().mw = meleeWeapons;

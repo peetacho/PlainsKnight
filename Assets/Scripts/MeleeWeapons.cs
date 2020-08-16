@@ -15,6 +15,8 @@ public class MeleeWeapons : ScriptableObject, MainWeapon
     public Sprite artwork;
     public GameObject meleeWeaponProjectile;
     public float meleeWeaponProjectileDamage;
+    public float meleeWeaponProjectileSpeed;
+
     public float shootDelayTime;
 
 }
