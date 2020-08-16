@@ -13,7 +13,7 @@ public class ObjectPooler : MonoBehaviour
     }
     private GameObject[] poolObjectsProjectile;
     public List<Pool> pools;
-    public int poolProjectileSize = 50;
+    public int poolProjectileSize = 150;
     private Dictionary<string, Queue<GameObject>> poolDictionary;
 
     // singleton
@@ -30,7 +30,12 @@ public class ObjectPooler : MonoBehaviour
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
 
         // loops through projectiles in resources folder and adds to list of Pools
-        poolObjectsProjectile = Resources.LoadAll<GameObject>("Enemy Projectiles");
+
+        // print(EnemyGenerator.projectileList.ToArray());
+        // print(EnemyGenerator.projectileList);
+
+        // poolObjectsProjectile = Resources.LoadAll<GameObject>("Enemy Projectiles");
+        poolObjectsProjectile = EnemyGenerator.projectileList.ToArray();
         foreach (GameObject poolObject in poolObjectsProjectile)
         {
             Pool p = new Pool();

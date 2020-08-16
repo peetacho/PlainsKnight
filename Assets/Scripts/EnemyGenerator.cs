@@ -6,12 +6,12 @@ public class EnemyGenerator : MonoBehaviour
 {
     [Header("Individual Settings: ")]
     public int totalEnemies;
-    // enemies to spawn at start
+    // list of enemies to spawn at start
     public string[] enemiesStart;
 
-    [Header("Update Settings: ")]
-    // enemies to spawn at update
-    public string[] enemiesUpdate;
+    [Header("Generate in Waves Settings: ")]
+    public bool isWave;
+    public int waveAmount;
     public float spawnDelayTime;
 
     // determines if enemies form in group or not
@@ -24,18 +24,54 @@ public class EnemyGenerator : MonoBehaviour
     public float mapX;
     public float mapY;
 
+    [Header("Creates a list of current projectiles based on enemies that will spawn. (For object pooler)")]
+    public static List<GameObject> projectileList;
+    public List<EnemyScriptObj> enemyScriptObjsList;
+
+    private void Awake()
+    {
+        if (enemiesStart != null)
+        {
+
+            projectileList = new List<GameObject>();
+            enemyScriptObjsList = new List<EnemyScriptObj>();
+
+            foreach (string enemy in enemiesStart)
+            {
+                // creates new enemyscriptobj from resources
+                EnemyScriptObj enemyScriptObj = Resources.Load("Scriptable Objects/Enemy/" + enemy, typeof(EnemyScriptObj)) as EnemyScriptObj;
+
+                // adds enemyscriptobj into enemyscriptobj list
+                enemyScriptObjsList.Add(enemyScriptObj);
+
+                // add projectile only if it list does not contain it
+                // remove chance of a duplicate
+                if (!projectileList.Contains(enemyScriptObj.projectile))
+                {
+                    // adds enemyscriptobj projectile into projectile list
+                    projectileList.Add(enemyScriptObj.projectile);
+                }
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         if (enemiesStart != null)
         {
-            if (isGroup)
+
+            if (isWave)
             {
-                generateGroupStart();
+                StartCoroutine(generateWaves());
             }
-            else
+            else if (isGroup)
             {
-                generateStart();
+                generateGroup();
+            }
+            else if (!isGroup)
+            {
+                generateIndividual();
             }
         }
     }
@@ -46,7 +82,7 @@ public class EnemyGenerator : MonoBehaviour
 
     }
 
-    void generateGroupStart()
+    void generateGroup()
     {
         for (var i = 0; i < groupAmount; i++)
         {
@@ -58,12 +94,12 @@ public class EnemyGenerator : MonoBehaviour
                 float diff = Random.Range(-1.0f, 1.0f);
                 Vector3 randPos = new Vector3(transform.position.x + dirX + diff, transform.position.y + dirY + diff, 0);
 
-                generateEnemy(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+                generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
             }
         }
     }
 
-    public void generateStart()
+    public void generateIndividual()
     {
         for (var i = 0; i < totalEnemies; i++)
         {
@@ -72,15 +108,30 @@ public class EnemyGenerator : MonoBehaviour
 
             Vector3 randPos = new Vector3(transform.position.x + dirX, transform.position.y + dirY, 0);
 
-            generateEnemy(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+            generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
         }
     }
 
-    void generateUpdate()
+    IEnumerator generateWaves()
     {
+        for (var i = 0; i < waveAmount; i++)
+        {
+            if (isGroup)
+            {
+                generateGroup();
+            }
+            else
+            {
+                generateIndividual();
+            }
+            print("wave generated");
+            yield return new WaitForSeconds(spawnDelayTime);
+        }
     }
 
-    public void generateEnemy(Vector3 position, string enemyName)
+
+
+    public void generateOne(Vector3 position, string enemyName)
     {
         // load enemy as gameobject from resources folder
         GameObject enemy = Resources.Load("Prefabs/Enemy", typeof(GameObject)) as GameObject;
@@ -89,7 +140,10 @@ public class EnemyGenerator : MonoBehaviour
         GameObject enemyInstance = Instantiate(enemy, position, Quaternion.identity);
 
         // loads enemy scriptable object from resources folder
-        EnemyScriptObj enemyScriptObj = Resources.Load("Scriptable Objects/Enemy/" + enemyName, typeof(EnemyScriptObj)) as EnemyScriptObj;
+        // EnemyScriptObj enemyScriptObj = Resources.Load("Scriptable Objects/Enemy/" + enemyName, typeof(EnemyScriptObj)) as EnemyScriptObj;
+
+        int index = System.Array.IndexOf(enemiesStart, enemyName);
+        EnemyScriptObj enemyScriptObj = enemyScriptObjsList[index];
 
         // get loaded scrip obj and set enemy script obj
         enemy.GetComponent<Enemy>().enemyScriptObj = enemyScriptObj;
