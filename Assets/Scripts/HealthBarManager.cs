@@ -9,20 +9,22 @@ public class HealthBarManager : MonoBehaviour
     private GameObject player;
     // private Animator playerAnim;
     private SpriteRenderer playerSR;
+    private Slider slider;
+    private Text healthNumber;
 
     [Header("Player Health:")]
-    public float maxHealth;
-    public float currentHealth;
+    public int maxHealth;
+    public int currentHealth;
 
-    [Header("UI Settings:")]
-    public float UI_SPACING = 65.0f;
+    // [Header("UI Settings:")]
+    // public float UI_SPACING = 65.0f;
 
-    [Header("Sprites and Artwork:")]
-    public Image heart0;
-    public Image heart1;
-    public Image heart2;
-    public Image heart3;
-    public Image heart4;
+    // [Header("Sprites and Artwork:")]
+    // public Image heart0;
+    // public Image heart1;
+    // public Image heart2;
+    // public Image heart3;
+    // public Image heart4;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +37,22 @@ public class HealthBarManager : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("maxHealth"))
         {
-            PlayerPrefs.SetInt("maxHealth", 4);
+            PlayerPrefs.SetInt("maxHealth", 20);
         }
+
+        slider = GetComponent<Slider>();
+        healthNumber = transform.Find("HealthNumber").GetComponent<Text>();
+
+        initHealthBar();
+    }
+
+    void initHealthBar()
+    {
         maxHealth = PlayerPrefs.GetInt("maxHealth");
+        slider.maxValue = maxHealth;
+        slider.value = maxHealth;
         currentHealth = maxHealth;
-        getHearts("heal", 0.0f);
+        healthNumber.text = currentHealth + "/" + maxHealth;
     }
 
     IEnumerator Hurt()
@@ -53,8 +66,9 @@ public class HealthBarManager : MonoBehaviour
         playerSR.color = hurtColor;
     }
 
-    public void getHearts(string heal_damage, float value)
+    public void getHearts(string heal_damage, int value)
     {
+        print(value);
         if (heal_damage == "heal")
         {
             currentHealth += value;
@@ -65,10 +79,9 @@ public class HealthBarManager : MonoBehaviour
             StartCoroutine(Hurt());
 
             FindObjectOfType<CameraShake>().Shake(0.1f * value, 0.1f);
-
         }
 
-        if (currentHealth < 0.25)
+        if (currentHealth < 0)
         {
             // makes sure current health does not pass 0, and ends game
             currentHealth = 0;
@@ -81,76 +94,9 @@ public class HealthBarManager : MonoBehaviour
             currentHealth = maxHealth;
         }
 
-        int max = (int)(maxHealth);
-        int curFloor = (int)(Mathf.Floor(currentHealth));
-        float decMax = Mathf.Repeat(maxHealth, 1.0f);
+        // print(currentHealth);
+        slider.value = currentHealth;
+        healthNumber.text = currentHealth + "/" + maxHealth;
 
-        float difference = maxHealth - currentHealth;
-
-        for (var i = 1; i <= curFloor; i++)
-        {
-            SetParent(heart0, getNewLocation(i));
-        }
-
-        if (currentHealth == maxHealth)
-        {
-            return;
-        }
-
-        float decCur = Mathf.Repeat(currentHealth, 1.0f);
-
-        switch (decCur)
-        {
-            case 0.0f:
-                SetParent(heart4, getNewLocation(curFloor + 1));
-                break;
-            case 0.25f:
-                SetParent(heart3, getNewLocation(curFloor + 1));
-                break;
-            case 0.5f:
-                SetParent(heart2, getNewLocation(curFloor + 1));
-                break;
-            case 0.75f:
-                SetParent(heart1, getNewLocation(curFloor + 1));
-                break;
-        }
-
-        for (var j = curFloor + 2; j <= maxHealth; j++)
-        {
-            SetParent(heart4, getNewLocation(j));
-        }
-    }
-
-    Vector3 getNewLocation(int index)
-    {
-
-        return new Vector3(transform.position.x + (UI_SPACING * index), transform.position.y, transform.position.z);
-    }
-
-    public void SetParent(Image heart, Vector3 heartPos)
-    {
-        newHeart = Instantiate(heart, heartPos, Quaternion.identity);
-        newHeart.transform.SetParent(gameObject.transform);
-
-        // change size
-        newHeart.transform.localScale = new Vector3(2, 2, 2);
-    }
-
-    // Update is called once per frame
-    // private void Update()
-    // {
-    //     if (Input.touchCount > 0)
-    //     {
-    //         getHearts("heal", 0.25f);
-    //     }
-    // }
-
-    public void resetHearts(string heal_damage, float value)
-    {
-        foreach (Transform t in gameObject.transform)
-        {
-            Destroy(t.gameObject);
-        }
-        getHearts(heal_damage, value);
     }
 }

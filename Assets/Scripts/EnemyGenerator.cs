@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
+    [Header("Debug Settings: ")]
+    public bool isSpawning = true;
     [Header("Individual Settings: ")]
     public int totalEnemies;
     // list of enemies to spawn at start
@@ -32,7 +34,6 @@ public class EnemyGenerator : MonoBehaviour
     {
         if (enemiesStart != null)
         {
-
             projectileList = new List<GameObject>();
             enemyScriptObjsList = new List<EnemyScriptObj>();
 
@@ -58,7 +59,7 @@ public class EnemyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (enemiesStart != null)
+        if (enemiesStart != null && isSpawning)
         {
 
             if (isWave)

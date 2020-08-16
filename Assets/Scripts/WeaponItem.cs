@@ -116,13 +116,13 @@ public class WeaponItem : MonoBehaviour
             }
         }
 
-        // for debugging
-        string str = "";
-        foreach (MainWeapon mainWeapon in ow)
-        {
-            str += mainWeapon.ToString() + " ";
-        }
-        print(str);
+        // // for debugging
+        // string str = "";
+        // foreach (MainWeapon mainWeapon in ow)
+        // {
+        //     str += mainWeapon.ToString() + " ";
+        // }
+        // print(str);
 
         Destroy(gameObject);
         // print("got weapon item");

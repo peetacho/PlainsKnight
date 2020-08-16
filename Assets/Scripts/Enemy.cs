@@ -32,8 +32,8 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
     public string enemyName;
-    public float meleeDamage;
-    public float rangedDamage;
+    public int meleeDamage;
+    public int rangedDamage;
     public float rangedAttackSpeed;
     public float attackDelayTime;
     public float attackRange;
@@ -270,7 +270,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FindObjectOfType<HealthBarManager>().resetHearts("damage", meleeDamage);
+            FindObjectOfType<HealthBarManager>().getHearts("damage", meleeDamage);
         }
         else if (other.gameObject.tag == "Obstacle")
         {
@@ -290,6 +290,9 @@ public class Enemy : MonoBehaviour
                 // GameObject projectileInstance = Instantiate(es.projectile, enemyPos, transform.rotation);
                 GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(projectile.name, enemyPos, transform.rotation);
                 // print("brown " + projectile.name);
+
+                // set damage in projectile script
+                projectileInstance.GetComponent<Projectile>().projectileDamage = rangedDamage;
 
                 Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 

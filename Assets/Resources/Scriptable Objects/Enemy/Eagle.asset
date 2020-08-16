@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   enemyName: Eagle
-  meleeDamage: 0.5
-  rangedDamage: 0.25
+  meleeDamage: 1
+  rangedDamage: 2
   rangedAttackSpeed: 50
   attackDelayTime: 1
   attackRange: 10

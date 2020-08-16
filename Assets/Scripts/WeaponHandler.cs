@@ -12,7 +12,7 @@ public class WeaponHandler : MonoBehaviour
     public Transform weaponGFXTransform;
 
     // newly created weapons
-    SpriteRenderer weaponGFXSR;
+    public static SpriteRenderer weaponGFXSR;
     GameObject newWeapon;
     string weaponCloneName;
 

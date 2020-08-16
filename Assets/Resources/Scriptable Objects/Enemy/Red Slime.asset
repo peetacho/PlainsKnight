@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   enemyName: Red Slime
-  meleeDamage: 0.25
-  rangedDamage: 0.25
+  meleeDamage: 2
+  rangedDamage: 1
   rangedAttackSpeed: 30
   attackDelayTime: 2
   attackRange: 10

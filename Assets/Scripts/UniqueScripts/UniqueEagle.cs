@@ -28,6 +28,9 @@ public class UniqueEagle : MonoBehaviour
                 GameObject projectileInstance = ObjectPooler.i.SpawnFromPool(es.projectile.name, enemyPos, transform.rotation);
                 // print("brown " + projectile.name);
 
+                // set damage in projectile script
+                projectileInstance.GetComponent<Projectile>().projectileDamage = es.rangedDamage;
+
                 Rigidbody2D projRB = projectileInstance.GetComponent<Rigidbody2D>();
 
 

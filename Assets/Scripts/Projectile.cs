@@ -5,9 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float DestroyTime;// = 2.0f;
-
-    [Header("Projectile Damage to player:")]
-    public float projectileDamage; // 0.25f;
+    public int projectileDamage; // 0.25f;
     public float rotZ; // = 15.0f;
 
     Rigidbody2D rb;
@@ -61,7 +59,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            FindObjectOfType<HealthBarManager>().resetHearts("damage", projectileDamage);
+            FindObjectOfType<HealthBarManager>().getHearts("damage", projectileDamage);
             gameObject.SetActive(false);
         }
         else if (other.gameObject.tag == "Obstacle")

@@ -9,8 +9,8 @@ public class EnemyScriptObj : ScriptableObject
     [Header("Stats:")]
     public float maxHealth;
     public string enemyName;
-    public float meleeDamage;
-    public float rangedDamage;
+    public int meleeDamage;
+    public int rangedDamage;
     public float rangedAttackSpeed;
     public float attackDelayTime;
     public float attackRange;
