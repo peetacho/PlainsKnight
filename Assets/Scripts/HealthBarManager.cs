@@ -68,7 +68,6 @@ public class HealthBarManager : MonoBehaviour
 
     public void getHearts(string heal_damage, int value)
     {
-        print(value);
         if (heal_damage == "heal")
         {
             currentHealth += value;

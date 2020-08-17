@@ -125,7 +125,7 @@ public class EnemyGenerator : MonoBehaviour
             {
                 generateIndividual();
             }
-            print("wave generated");
+            // print("wave generated");
             yield return new WaitForSeconds(spawnDelayTime);
         }
     }

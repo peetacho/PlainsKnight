@@ -197,6 +197,7 @@ public class CharacterController2D : MonoBehaviour
         {
             // play swing animation
             // GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
+            FindObjectOfType<EnergyBarManager>().getEnergy("use", 1);
 
             // get angle between start vector of (-0.45,-0.45) and shoot direction 
             float angle = Vector2.SignedAngle(new Vector2(-1f, -1f), shootDirection);
