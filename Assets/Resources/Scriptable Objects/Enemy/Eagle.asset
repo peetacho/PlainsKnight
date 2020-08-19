@@ -16,8 +16,8 @@ MonoBehaviour:
   enemyName: Eagle
   meleeDamage: 1
   rangedDamage: 2
-  rangedAttackSpeed: 40
-  attackDelayTime: 2
+  rangedAttackSpeed: 35
+  attackDelayTime: 3
   attackRange: 10
   movementSpeed: 3
   colliderRadius: 0.5

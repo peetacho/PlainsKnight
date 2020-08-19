@@ -17,8 +17,10 @@ public class MeleeWeapons : ScriptableObject, MainWeapon
     public GameObject meleeWeaponProjectile;
     public float meleeWeaponProjectileDamage;
     public float meleeWeaponProjectileSpeed;
-
     public float shootDelayTime;
+
+    [Header("Unique script:")]
+    public Object uniqueScript;
 
 }
 public interface MainWeapon

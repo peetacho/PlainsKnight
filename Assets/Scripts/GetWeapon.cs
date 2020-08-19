@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GetWeapon : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class GetWeapon : MonoBehaviour
     public static GameObject weaponProjectileR;
 
     [Header("Other Important Variables:")]
+    public System.Type uniqueScript;
     // this static weapontype variable tells wether the current weapon is ranged or melee
     public static weapontype currentWeaponType;
     public enum weapontype { ranged, melee };
@@ -67,10 +69,12 @@ public class GetWeapon : MonoBehaviour
         if (rw != null)
         {
             obtainedWeapons.Add(rw);
+            initUniqueScript();
         }
         if (mw != null)
         {
             obtainedWeapons.Add(mw);
+            initUniqueScript();
         }
     }
 
@@ -81,19 +85,6 @@ public class GetWeapon : MonoBehaviour
         {
             initWeapon();
         }
-        clearStats();
-    }
-
-    void clearStats()
-    {
-        if (currentWeaponType == weapontype.melee)
-        {
-            // print("clear ranged");
-        }
-        else
-        {
-            // print("clear melee");
-        }
     }
 
     public static weapontype GetWeapontype()
@@ -101,8 +92,9 @@ public class GetWeapon : MonoBehaviour
         return currentWeaponType;
     }
 
-    void initWeapon()
+    public void initWeapon()
     {
+
         var currentWeapon = obtainedWeapons[currentWeaponIndex];
         // print(currentWeapon);
 
@@ -119,6 +111,7 @@ public class GetWeapon : MonoBehaviour
             initStatsM();
             currentWeaponType = weapontype.melee;
         }
+
     }
 
     // initializes melee weapon stats
@@ -152,6 +145,31 @@ public class GetWeapon : MonoBehaviour
         energyCostR = rw.energyCost;
         weaponProjectileR = rw.rangedWeaponProjectile;
         shootDelayTimeR = rw.shootDelayTime;
+    }
+
+    // gets unique script
+    void initUniqueScript()
+    {
+        if (obtainedWeapons[currentWeaponIndex].GetType() == typeof(RangedWeapons) && rw.uniqueScript != null)
+        {
+            var script = ObjectNames.GetDragAndDropTitle(rw.uniqueScript).Replace(" (MonoScript)", "");
+            // print(script);
+            uniqueScript = System.Type.GetType(script);
+
+            gameObject.AddComponent(uniqueScript);
+        }
+        else if (obtainedWeapons[currentWeaponIndex].GetType() == typeof(MeleeWeapons) && mw.uniqueScript != null)
+        {
+            var script = ObjectNames.GetDragAndDropTitle(mw.uniqueScript).Replace(" (MonoScript)", "");
+            // print(script);
+            uniqueScript = System.Type.GetType(script);
+
+            gameObject.AddComponent(uniqueScript);
+        }
+        else
+        {
+            print("no script!" + gameObject.name);
+        }
     }
 
 }

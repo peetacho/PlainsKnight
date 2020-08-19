@@ -15,8 +15,7 @@ public class RangedWeapons : ScriptableObject, MainWeapon
     public float shootDelayTime;
     public GameObject rangedWeaponProjectile;
 
-    // [Header("Range x/y for position of the weapon.")]
-    // public float rangeX;
-    // public float rangeY;
+    [Header("Unique script:")]
+    public Object uniqueScript;
 
 }

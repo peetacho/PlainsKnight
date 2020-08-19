@@ -249,13 +249,13 @@ public class Enemy : MonoBehaviour
         // yield return new WaitForSeconds(0.2f);
         // transform.position = new Vector2(transform.position.x + difference.x, transform.position.y + difference.y);
         aipath.enabled = false;
-        Vector2 difference = (transform.position - player.transform.position).normalized * weaponKnockBack;
-        rb.AddForce(difference, ForceMode2D.Impulse);
+        // Vector2 difference = (transform.position - player.transform.position).normalized * weaponKnockBack;
+        // rb.AddForce(difference, ForceMode2D.Impulse);
 
         // add stunned animation?
         // print("stun");
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(weaponKnockBack);
         aipath.enabled = true;
     }
 

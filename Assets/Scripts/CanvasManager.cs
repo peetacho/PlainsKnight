@@ -28,9 +28,10 @@ public class CanvasManager : MonoBehaviour
 
     public void switchImage()
     {
+        GetWeapon gw = FindObjectOfType<GetWeapon>();
 
         // switch weapon index
-        FindObjectOfType<GetWeapon>().switchWeapon();
+        gw.switchWeapon();
 
         List<MainWeapon> ow = GetWeapon.obtainedWeapons;
         int cwIndex = GetWeapon.currentWeaponIndex;
@@ -43,14 +44,14 @@ public class CanvasManager : MonoBehaviour
             SwitchWeaponButtonImage.sprite = rw.artwork;
 
             // change text
-            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostR.ToString();
+            SwitchWeaponButtonEnergyCost.text = rw.energyCost.ToString();
         }
         else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
         {
             MeleeWeapons mw = (MeleeWeapons)ow[cwIndex];
             SwitchWeaponButtonImage.sprite = mw.artwork;
 
-            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostM.ToString();
+            SwitchWeaponButtonEnergyCost.text = mw.energyCost.ToString();
         }
     }
 
@@ -67,14 +68,14 @@ public class CanvasManager : MonoBehaviour
             SwitchWeaponButtonImage.sprite = rw.artwork;
 
             // change text
-            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostR.ToString();
+            SwitchWeaponButtonEnergyCost.text = rw.energyCost.ToString();
         }
         else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
         {
             MeleeWeapons mw = (MeleeWeapons)ow[cwIndex];
             SwitchWeaponButtonImage.sprite = mw.artwork;
 
-            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostM.ToString();
+            SwitchWeaponButtonEnergyCost.text = mw.energyCost.ToString();
         }
     }
 

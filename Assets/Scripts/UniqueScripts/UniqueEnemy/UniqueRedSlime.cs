@@ -12,6 +12,13 @@ public class UniqueRedSlime : MonoBehaviour
     void Start()
     {
         es = GetComponent<Enemy>();
+
+        float rand = Random.Range(0.0f, 1.0f);
+        Invoke("invokeShoot", rand);
+    }
+
+    void invokeShoot()
+    {
         StartCoroutine(Shoot());
     }
 
