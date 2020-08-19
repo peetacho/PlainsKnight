@@ -6,7 +6,7 @@ public class GetWeapon : MonoBehaviour
 {
     public MeleeWeapons mw;
     public RangedWeapons rw;
-    SpriteRenderer sr;
+    public static SpriteRenderer sr;
     BoxCollider2D box;
 
     [Header("Melee Weapon Stats:")]
@@ -16,6 +16,7 @@ public class GetWeapon : MonoBehaviour
     public static float weaponKnockBackM;
     public static float attackRangeM;
     public static int attackSpeedM;
+    public static int energyCostM;
     public static GameObject weaponProjectileM;
     public static float weaponProjectileDamageM;
     public static float weaponProjectileSpeedM;
@@ -27,7 +28,7 @@ public class GetWeapon : MonoBehaviour
     public static float weaponCriticalChanceR;
     public static float weaponKnockBackR;
     public static int attackSpeedR;
-    public static int manaCostR;
+    public static int energyCostR;
     public static float shootDelayTimeR;
     public static GameObject weaponProjectileR;
 
@@ -62,9 +63,6 @@ public class GetWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // event listener to switch weapon button
-        UnityEngine.UI.Button SwitchWeaponButton = CanvasManager.SwitchWeaponButton;
-        SwitchWeaponButton.onClick.AddListener(switchWeapon);
 
         if (rw != null)
         {
@@ -133,6 +131,7 @@ public class GetWeapon : MonoBehaviour
         weaponCriticalChanceM = mw.criticalChance;
         weaponKnockBackM = mw.weaponKnockBack;
         attackSpeedM = mw.attackSpeed;
+        energyCostM = mw.energyCost;
         weaponProjectileM = mw.meleeWeaponProjectile;
         weaponProjectileDamageM = mw.meleeWeaponProjectileDamage;
         weaponProjectileSpeedM = mw.meleeWeaponProjectileSpeed;
@@ -150,7 +149,7 @@ public class GetWeapon : MonoBehaviour
         weaponCriticalChanceR = rw.weaponCriticalChance;
         weaponKnockBackR = rw.weaponKnockBack;
         attackSpeedR = rw.attackSpeed;
-        manaCostR = rw.manaCost;
+        energyCostR = rw.energyCost;
         weaponProjectileR = rw.rangedWeaponProjectile;
         shootDelayTimeR = rw.shootDelayTime;
     }

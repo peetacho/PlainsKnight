@@ -14,6 +14,7 @@ public class EnergyBarManager : MonoBehaviour
     [Header("Player Energy:")]
     public int maxEnergy;
     public int currentEnergy;
+    public bool hasEnergy = true;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class EnergyBarManager : MonoBehaviour
 
     public void getEnergy(string restore_use, int value)
     {
+
         if (restore_use == "restore")
         {
             currentEnergy += value;
@@ -53,16 +55,18 @@ public class EnergyBarManager : MonoBehaviour
         else if (restore_use == "use")
         {
             currentEnergy -= value;
-            // StartCoroutine(Hurt());
-
-            // FindObjectOfType<CameraShake>().Shake(0.1f * value, 0.1f);
         }
 
-        if (currentEnergy < 0)
+        if (currentEnergy <= 0)
         {
             // makes sure current energy does not pass 0
             currentEnergy = 0;
-            print("out of energy!");
+            hasEnergy = false;
+            // print("out of energy!");
+        }
+        else if (currentEnergy > 0)
+        {
+            hasEnergy = true;
         }
 
         if (currentEnergy > maxEnergy)

@@ -23,7 +23,7 @@ MonoBehaviour:
   colliderRadius: 0.5
   projectile: {fileID: 3143618259537959414, guid: db1725777f8674da1b5d5b2a02ab12ef,
     type: 3}
-  enemyIsRanged: 1
+  enemyIsRanged: 0
   enemyViewRange: 8
   uniqueScript: {fileID: 11500000, guid: b70c8f4707eaf4bddb30ac4594f87e09, type: 3}
   artwork: {fileID: -8963772635242594009, guid: 061a72d8c6e0b45ddb8dd1108606ff6e,

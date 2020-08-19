@@ -18,7 +18,7 @@ MonoBehaviour:
   weaponKnockBack: 1.5
   attackSpeed: 100
   artwork: {fileID: 5508725064705088119, guid: cc0e30972078341e989cb5834e0279e1, type: 3}
-  manaCost: 10
+  energyCost: 1
   shootDelayTime: 0.2
   rangedWeaponProjectile: {fileID: 8124671232949684928, guid: 8d22e71ff11ae4e8da2213ea28847105,
     type: 3}

@@ -148,11 +148,13 @@ public class CharacterController2D : MonoBehaviour
         Vector3 weaponRangedPos = WeaponHandler.weaponRangedPos.transform.position;
 
         // swings only if right joystick is moving
-        if (shootDirection != Vector2.zero)
+        if (shootDirection != Vector2.zero && canShoot())
         {
             // GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
             GameObject.Find("Weapon(Clone)").GetComponent<Animator>().SetTrigger("Attack");
             float angle = Vector2.SignedAngle(new Vector2(-1f, -1f), shootDirection);
+
+            FindObjectOfType<EnergyBarManager>().getEnergy("use", GetWeapon.energyCostM);
 
             // print(angle);
             // GameObject projectileInstance = Instantiate(GetWeapon.weaponProjectileR, transform.position, Quaternion.identity);
@@ -189,15 +191,49 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
+    bool canShoot()
+    {
+        bool shoot = false;
+
+        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
+        int cwIndex = GetWeapon.currentWeaponIndex;
+
+        // sees if current weapon is of type rangedweapons
+        if (ow[cwIndex].GetType() == typeof(RangedWeapons))
+        {
+            if (GetWeapon.energyCostR == 0)
+            {
+                shoot = true;
+            }
+            else
+            {
+                shoot = FindObjectOfType<EnergyBarManager>().hasEnergy;
+            }
+        }
+        else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
+        {
+            if (GetWeapon.energyCostM == 0)
+            {
+                shoot = true;
+            }
+            else
+            {
+                shoot = FindObjectOfType<EnergyBarManager>().hasEnergy;
+            }
+        }
+
+        return shoot;
+    }
+
     void rangedWeaponShoot()
     {
         Vector3 playerPos = transform.position;
 
-        if (shootDirection != Vector2.zero)
+        if (shootDirection != Vector2.zero && canShoot())
         {
             // play swing animation
             // GameObject.Find("Weapon(Clone)").GetComponent<Animator>().Play("Swing1");
-            FindObjectOfType<EnergyBarManager>().getEnergy("use", 1);
+            FindObjectOfType<EnergyBarManager>().getEnergy("use", GetWeapon.energyCostR);
 
             // get angle between start vector of (-0.45,-0.45) and shoot direction 
             float angle = Vector2.SignedAngle(new Vector2(-1f, -1f), shootDirection);

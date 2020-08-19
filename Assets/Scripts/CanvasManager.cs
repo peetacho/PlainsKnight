@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class CanvasManager : MonoBehaviour
     public static Button SwitchWeaponButton;
     public Image SwitchWeaponButtonImage;
     public Joystick shootJoystick;
-    public Text obtainedWeaponsList;
+    public GameObject SwitchWeaponButtonEnergy;
+    public static TextMeshProUGUI SwitchWeaponButtonEnergyCost;
     SpriteRenderer weaponGFXSR;
 
     // Start is called before the first frame update
@@ -19,13 +21,61 @@ public class CanvasManager : MonoBehaviour
         interactButton = gameObject.transform.Find("Interact").GetComponent<Button>();
         SwitchWeaponButton = gameObject.transform.Find("Switch Weapon").GetComponent<Button>();
         SwitchWeaponButtonImage = SwitchWeaponButton.transform.Find("Image").GetComponent<Image>();
+        SwitchWeaponButtonEnergyCost = SwitchWeaponButtonEnergy.GetComponent<TextMeshProUGUI>();
 
         Invoke("switchImage", 0.01f);
     }
 
     public void switchImage()
     {
-        SwitchWeaponButtonImage.sprite = WeaponHandler.weaponGFXSR.sprite;
+
+        // switch weapon index
+        FindObjectOfType<GetWeapon>().switchWeapon();
+
+        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
+        int cwIndex = GetWeapon.currentWeaponIndex;
+
+        // sees if current weapon is of type rangedweapons
+        if (ow[cwIndex].GetType() == typeof(RangedWeapons))
+        {
+            RangedWeapons rw = (RangedWeapons)ow[cwIndex];
+            // change artwork
+            SwitchWeaponButtonImage.sprite = rw.artwork;
+
+            // change text
+            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostR.ToString();
+        }
+        else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
+        {
+            MeleeWeapons mw = (MeleeWeapons)ow[cwIndex];
+            SwitchWeaponButtonImage.sprite = mw.artwork;
+
+            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostM.ToString();
+        }
+    }
+
+    public void switchImageOnly()
+    {
+        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
+        int cwIndex = GetWeapon.currentWeaponIndex;
+
+        // sees if current weapon is of type rangedweapons
+        if (ow[cwIndex].GetType() == typeof(RangedWeapons))
+        {
+            RangedWeapons rw = (RangedWeapons)ow[cwIndex];
+            // change artwork
+            SwitchWeaponButtonImage.sprite = rw.artwork;
+
+            // change text
+            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostR.ToString();
+        }
+        else if (ow[cwIndex].GetType() == typeof(MeleeWeapons))
+        {
+            MeleeWeapons mw = (MeleeWeapons)ow[cwIndex];
+            SwitchWeaponButtonImage.sprite = mw.artwork;
+
+            SwitchWeaponButtonEnergyCost.text = GetWeapon.energyCostM.ToString();
+        }
     }
 
     private void Update()

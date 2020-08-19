@@ -13,6 +13,7 @@ public class MeleeWeapons : ScriptableObject, MainWeapon
     public float meleeRange;
     public int attackSpeed;
     public Sprite artwork;
+    public int energyCost;
     public GameObject meleeWeaponProjectile;
     public float meleeWeaponProjectileDamage;
     public float meleeWeaponProjectileSpeed;

@@ -66,6 +66,12 @@ public class HealthBarManager : MonoBehaviour
         playerSR.color = hurtColor;
     }
 
+    public void restoreHearts()
+    {
+        getHearts("heal", 20);
+        FindObjectOfType<EnergyBarManager>().getEnergy("restore", 20);
+    }
+
     public void getHearts(string heal_damage, int value)
     {
         if (heal_damage == "heal")

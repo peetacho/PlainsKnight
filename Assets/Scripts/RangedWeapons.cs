@@ -11,7 +11,7 @@ public class RangedWeapons : ScriptableObject, MainWeapon
     public float weaponKnockBack;
     public int attackSpeed;
     public Sprite artwork;
-    public int manaCost;
+    public int energyCost;
     public float shootDelayTime;
     public GameObject rangedWeaponProjectile;
 

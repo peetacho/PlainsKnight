@@ -74,6 +74,7 @@ public class WeaponItem : MonoBehaviour
         int cwIndex = GetWeapon.currentWeaponIndex;
 
         // allows only two weapons in inventory
+        // picks up weapon
         if (ow.Count < maxWeaponsAmt)
         {
             if (meleeWeapons != null)
@@ -86,6 +87,9 @@ public class WeaponItem : MonoBehaviour
                 // FindObjectOfType<GetWeapon>().rw = rangedWeapons;
                 ow.Add(rangedWeapons);
             }
+            // switches image
+            FindObjectOfType<CanvasManager>().switchImageOnly();
+
         }
         else if (ow.Count >= maxWeaponsAmt)
         {
@@ -114,15 +118,17 @@ public class WeaponItem : MonoBehaviour
                 // FindObjectOfType<GetWeapon>().rw = rangedWeapons;
                 ow[cwIndex] = rangedWeapons;
             }
+            // switches image
+            FindObjectOfType<CanvasManager>().switchImageOnly();
         }
 
-        // // for debugging
-        // string str = "";
-        // foreach (MainWeapon mainWeapon in ow)
-        // {
-        //     str += mainWeapon.ToString() + " ";
-        // }
-        // print(str);
+        // for debugging
+        string str = "";
+        foreach (MainWeapon mainWeapon in ow)
+        {
+            str += mainWeapon.ToString() + " ";
+        }
+        print(str);
 
         Destroy(gameObject);
         // print("got weapon item");
