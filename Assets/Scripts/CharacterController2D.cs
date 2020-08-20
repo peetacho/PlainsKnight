@@ -195,8 +195,8 @@ public class CharacterController2D : MonoBehaviour
     {
         bool shoot = false;
 
-        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
-        int cwIndex = GetWeapon.currentWeaponIndex;
+        List<MainWeapon> ow = GetWeapon.ow;
+        int cwIndex = GetWeapon.cwIndex;
 
         // sees if current weapon is of type rangedweapons
         if (ow[cwIndex].GetType() == typeof(RangedWeapons))

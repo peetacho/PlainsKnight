@@ -25,3 +25,4 @@ MonoBehaviour:
   meleeWeaponProjectileDamage: 1
   meleeWeaponProjectileSpeed: 30
   shootDelayTime: 0.5
+  uniqueScript: {fileID: 11500000, guid: 3b2f832bb77c0495082289a2261b652e, type: 3}

@@ -33,8 +33,12 @@ public class CanvasManager : MonoBehaviour
         // switch weapon index
         gw.switchWeapon();
 
-        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
-        int cwIndex = GetWeapon.currentWeaponIndex;
+
+        // switches unique scripts
+        gw.switchUniqueScripts();
+
+        List<MainWeapon> ow = GetWeapon.ow;
+        int cwIndex = GetWeapon.cwIndex;
 
         // sees if current weapon is of type rangedweapons
         if (ow[cwIndex].GetType() == typeof(RangedWeapons))
@@ -57,8 +61,8 @@ public class CanvasManager : MonoBehaviour
 
     public void switchImageOnly()
     {
-        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
-        int cwIndex = GetWeapon.currentWeaponIndex;
+        List<MainWeapon> ow = GetWeapon.ow;
+        int cwIndex = GetWeapon.cwIndex;
 
         // sees if current weapon is of type rangedweapons
         if (ow[cwIndex].GetType() == typeof(RangedWeapons))

@@ -315,7 +315,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            float mag = 1.5f;
+            float mag = 0.8f;
             // Move in a direction
             float dirX = UnityEngine.Random.Range(-mag, mag);
             float dirY = UnityEngine.Random.Range(-mag, mag);

@@ -8,10 +8,11 @@ using System;
 public class ProceduralGeneration : MonoBehaviour
 {
     private Tilemap tm;
-    int[,] map;
+    public Tilemap tmWalls;
+    public int[,] map;
 
-    public int height = 20;
-    public int width = 30;
+    public int height;
+    public int width;
     public string seed;
     public bool useRandomSeed;
 
@@ -111,7 +112,7 @@ public class ProceduralGeneration : MonoBehaviour
             {
                 if (map[x, y] == 1)
                 {
-                    setTile(x, y, tile_wall);
+                    setTileWall(x, y, tile_wall);
                 }
                 if (map[x, y] == 0)
                 {
@@ -141,10 +142,14 @@ public class ProceduralGeneration : MonoBehaviour
             }
         }
     }
+
+    // function that returns a tile to the corresponding wall type
     Tile ChangeTile(int gridX, int gridY)
     {
         Tuple<int, int> tile;
         List<Tuple<int, int>> tiles = new List<Tuple<int, int>>();
+
+        // checks neighbor tiles
         for (int nbX = gridX - 1; nbX <= gridX + 1; nbX++)
         {
             for (int nbY = gridY - 1; nbY <= gridY + 1; nbY++)
@@ -355,6 +360,11 @@ public class ProceduralGeneration : MonoBehaviour
     void setTile(int x, int y, Tile tile)
     {
         tm.SetTile(new Vector3Int(x, y, 0), tile);
+    }
+
+    void setTileWall(int x, int y, Tile tile)
+    {
+        tmWalls.SetTile(new Vector3Int(x, y, 0), tile);
     }
 
     void instantiateDecoration(Vector3 pos)

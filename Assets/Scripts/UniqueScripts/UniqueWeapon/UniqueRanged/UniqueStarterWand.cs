@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UniquePistol : MonoBehaviour
+public class UniqueStarterWand : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

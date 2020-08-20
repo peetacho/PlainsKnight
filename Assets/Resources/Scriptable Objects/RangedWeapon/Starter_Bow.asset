@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Starter Bow
   damage: 2
-  weaponCriticalChance: 0.25
+  weaponCriticalChance: 0.05
   weaponKnockBack: 1.5
   attackSpeed: 100
   artwork: {fileID: 5508725064705088119, guid: cc0e30972078341e989cb5834e0279e1, type: 3}
@@ -22,3 +22,4 @@ MonoBehaviour:
   shootDelayTime: 0.2
   rangedWeaponProjectile: {fileID: 8124671232949684928, guid: 8d22e71ff11ae4e8da2213ea28847105,
     type: 3}
+  uniqueScript: {fileID: 11500000, guid: 30f415a64b8064675aac2643e42b6262, type: 3}

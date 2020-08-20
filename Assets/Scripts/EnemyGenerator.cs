@@ -7,9 +7,10 @@ public class EnemyGenerator : MonoBehaviour
     [Header("Debug Settings: ")]
     public bool isSpawning = true;
     [Header("Individual Settings: ")]
-    public int totalEnemies;
-    // list of enemies to spawn at start
-    public string[] enemiesStart;
+    GameObject[] currentEnemies; // list of enemies alive right now
+    public int currentTotalEnemies; // number of enemies alive right now
+    public int totalEnemies; // total number of enemies to spawn
+    public string[] enemiesStart; // list of enemies to spawn at start
 
     [Header("Generate in Waves Settings: ")]
     public bool isWave;
@@ -23,12 +24,13 @@ public class EnemyGenerator : MonoBehaviour
     public int groupSize;
 
     [Header("Map width and height: ")]
-    public float mapX;
-    public float mapY;
+    int widthPG;
+    int heightPG;
 
     [Header("Creates a list of current projectiles based on enemies that will spawn. (For object pooler)")]
     public static List<GameObject> projectileList;
     public List<EnemyScriptObj> enemyScriptObjsList;
+    public ProceduralGeneration pg;
 
     private void Awake()
     {
@@ -59,20 +61,26 @@ public class EnemyGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        widthPG = pg.width;
+        heightPG = pg.height;
+
+        print(widthPG + "     " + heightPG);
+
         if (enemiesStart != null && isSpawning)
         {
 
             if (isWave)
             {
-                StartCoroutine(generateWaves());
+                Invoke("generateWave", 0.3f);
             }
             else if (isGroup)
             {
-                generateGroup();
+                Invoke("generateGroup", 0.3f);
             }
             else if (!isGroup)
             {
-                generateIndividual();
+                // generateIndividual();
+                Invoke("generateIndividual", 0.3f);
             }
         }
     }
@@ -80,37 +88,59 @@ public class EnemyGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
 
+    private void FixedUpdate()
+    {
+        getCurrentTotalEnemies();
+    }
+
+    void getCurrentTotalEnemies()
+    {
+        currentEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        currentTotalEnemies = currentEnemies.Length;
     }
 
     void generateGroup()
     {
         for (var i = 0; i < groupAmount; i++)
         {
-            float dirX = Random.Range(-mapX, mapX);
-            float dirY = Random.Range(-mapY, mapY);
+            int dirX = Random.Range(0, widthPG);
+            int dirY = Random.Range(0, heightPG);
 
-            for (var j = 0; j < groupSize; j++)
+            if (getMapPG(dirX, dirY) == 0)
             {
-                float diff = Random.Range(-1.0f, 1.0f);
-                Vector3 randPos = new Vector3(transform.position.x + dirX + diff, transform.position.y + dirY + diff, 0);
+                for (var j = 0; j < groupSize; j++)
+                {
+                    float diff = Random.Range(-1.0f, 1.0f);
+                    Vector3 randPos = new Vector3(transform.position.x + dirX + diff, transform.position.y + dirY + diff, 0);
 
-                generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+                    generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+                }
             }
         }
     }
 
     public void generateIndividual()
     {
+        print("generating");
         for (var i = 0; i < totalEnemies; i++)
         {
-            float dirX = Random.Range(-mapX, mapX);
-            float dirY = Random.Range(-mapY, mapY);
+            int dirX = Random.Range(0, widthPG);
+            int dirY = Random.Range(0, heightPG);
 
-            Vector3 randPos = new Vector3(transform.position.x + dirX, transform.position.y + dirY, 0);
+            if (getMapPG(dirX, dirY) == 0)
+            {
+                Vector3 randPos = new Vector3(transform.position.x + dirX, transform.position.y + dirY, 0);
 
-            generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+                generateOne(randPos, enemiesStart[Random.Range(0, enemiesStart.Length)]);
+            }
         }
+    }
+
+    void generateWave()
+    {
+        StartCoroutine(generateWaves());
     }
 
     IEnumerator generateWaves()
@@ -134,6 +164,7 @@ public class EnemyGenerator : MonoBehaviour
 
     public void generateOne(Vector3 position, string enemyName)
     {
+
         // load enemy as gameobject from resources folder
         GameObject enemy = Resources.Load("Prefabs/Enemy", typeof(GameObject)) as GameObject;
 
@@ -148,6 +179,30 @@ public class EnemyGenerator : MonoBehaviour
 
         // get loaded scrip obj and set enemy script obj
         enemy.GetComponent<Enemy>().enemyScriptObj = enemyScriptObj;
+    }
+
+    int getMapPG(int x, int y)
+    {
+        var mapPG = pg.map;
+        int checkNBAmt = 2;
+
+        for (int nbX = x - checkNBAmt; nbX <= x + checkNBAmt; nbX++)
+        {
+            for (int nbY = y - checkNBAmt; nbY <= y + checkNBAmt; nbY++)
+            {
+
+                if (nbX >= 0 && nbX < widthPG && nbY >= 0 && nbY < heightPG)
+                {
+                    if (mapPG[nbX, nbY] == 1)
+                    {
+                        // wall tile is checkNBAmt away from current tile at (x,y), thus dont spawn enemy
+                        return 1;
+                    }
+                }
+            }
+        }
+
+        return mapPG[x, y];
     }
 
 }

@@ -54,7 +54,7 @@ public class WeaponItem : MonoBehaviour
             FindObjectOfType<CanvasManager>().toggleInteract(true);
 
             btn = CanvasManager.interactButton;
-            btn.onClick.AddListener(taskOnClick);
+            btn.onClick.AddListener(interact);
         }
     }
 
@@ -63,15 +63,15 @@ public class WeaponItem : MonoBehaviour
         if (other.tag == "Player")
         {
             FindObjectOfType<CanvasManager>().toggleInteract(false);
-            btn.onClick.RemoveListener(taskOnClick);
+            btn.onClick.RemoveListener(interact);
         }
     }
 
-    void taskOnClick()
+    void interact()
     {
-        List<MainWeapon> ow = GetWeapon.obtainedWeapons;
+        List<MainWeapon> ow = GetWeapon.ow;
         int maxWeaponsAmt = 2;
-        int cwIndex = GetWeapon.currentWeaponIndex;
+        int cwIndex = GetWeapon.cwIndex;
 
         // allows only two weapons in inventory
         // picks up weapon
@@ -90,6 +90,7 @@ public class WeaponItem : MonoBehaviour
             // switches image
             FindObjectOfType<CanvasManager>().switchImageOnly();
 
+            FindObjectOfType<GetWeapon>().toggleOtherUniqueWeapon();
         }
         else if (ow.Count >= maxWeaponsAmt)
         {
@@ -120,6 +121,9 @@ public class WeaponItem : MonoBehaviour
             }
             // switches image
             FindObjectOfType<CanvasManager>().switchImageOnly();
+
+            FindObjectOfType<GetWeapon>().toggleOtherUniqueWeapon();
+
         }
 
         // for debugging
